@@ -1,0 +1,151 @@
+-----------------------------------------------
+------ COMPLETE REPORT OF THE RESTAURANT ------
+-----------------------------------------------
+
+MENU 
+==== 
+STARERS
+    Garlic bread         (V) 3.00
+    Minestrone soup          3.50
+    Mixed olives             2.50
+    Salmon cakes             4.00
+MAINS
+    Grilled seabass          14.00
+    Lasagne                  15.00
+    Mushroom risotto     (V) 12.50
+    Roast chicken            14.50
+    Steak                    25.00
+SIDES
+    Cajun fries          (V) 2.50
+    French fries         (V) 2.50
+    Roasted vegetables   (V) 3.50
+    Salad                (V) 2.00
+DESSERTS
+    Baked cheesecake     (V) 4.00
+    Custard tart         (V) 1.50
+    Lemon sorbet         (V) 3.50
+    Rhubarb crumble      (V) 3.50
+DRINKS
+    Coffee               (V) 2.00
+    Juice                (V) 2.50
+    Sparkling water      (V) 2.50
+    Tea                  (V) 1.50
+
+TABLE SUMMARY
+==============
+TABLE 1
+STEAK               2  * 25.00 =  50.00
+MUSHROOM RISOTTO    3  * 12.50 =  37.50
+CAJUN FRIES         2  *  2.50 =   5.00
+JUICE               2  *  2.50 =   5.00
+GRILLED SEABASS     1  * 14.00 =  14.00
+                                 ======
+Total for this table :           111.50
+Discount :                        22.00
+Discounted total :                89.50
+
+TABLE 2
+MINESTRONE SOUP     1  *  3.50 =   3.50
+MUSHROOM RISOTTO    3  * 12.50 =  37.50
+ROAST CHICKEN       1  * 14.50 =  14.50
+TEA                 3  *  1.50 =   4.50
+RHUBARB CRUMBLE     2  *  3.50 =   7.00
+LEMON SORBET        1  *  3.50 =   3.50
+CUSTARD TART        1  *  1.50 =   1.50
+                                 ======
+Total for this table :            72.00
+Discount :                        36.00
+Discounted total :                36.00
+
+TABLE 3
+SALMON CAKES        1  *  4.00 =   4.00
+LASAGNE             2  * 15.00 =  30.00
+RHUBARB CRUMBLE     2  *  3.50 =   7.00
+FRENCH FRIES        1  *  2.50 =   2.50
+JUICE               4  *  2.50 =  10.00
+                                 ======
+Total for this table :            53.50
+Discount :                        10.00
+Discounted total :                43.50
+
+TABLE 4
+LASAGNE             3  * 15.00 =  45.00
+CAJUN FRIES         2  *  2.50 =   5.00
+ROASTED VEGETABLES  3  *  3.50 =  10.50
+SALAD               4  *  2.00 =   8.00
+                                 ======
+Total for this table :            68.50
+Discount :                        12.00
+Discounted total :                56.50
+
+TABLE 5
+SPARKLING WATER     5  *  2.50 =  12.50
+CUSTARD TART        1  *  1.50 =   1.50
+JUICE               5  *  2.50 =  12.50
+                                 ======
+Total for this table :            26.50
+Discount :                         4.00
+Discounted total :                22.50
+
+TABLE 6
+SPARKLING WATER     4  *  2.50 =  10.00
+COFFEE              3  *  2.00 =   6.00
+GARLIC BREAD        3  *  3.00 =   9.00
+                                 ======
+Total for this table :            25.00
+Discount :                         4.00
+Discounted total :                21.00
+
+TABLE 7
+ROASTED VEGETABLES  2  *  3.50 =   7.00
+MIXED OLIVES        2  *  2.50 =   5.00
+STEAK               3  * 25.00 =  75.00
+                                 ======
+Total for this table :            87.00
+Discount :                        16.00
+Discounted total :                71.00
+
+TABLE 8
+CAJUN FRIES         3  *  2.50 =   7.50
+                                 ======
+Total for this table :             7.50
+Discount :                         0.00
+Discounted total :                 7.50
+
+FREQUENCY REPORT
+================
+Salmon cakes          1
+Sparkling water       9
+Grilled seabass       1
+Lemon sorbet          1
+Steak                 5
+Juice                 11
+Roasted vegetables    5
+Rhubarb crumble       4
+Coffee                3
+Mixed olives          2
+Mushroom risotto      6
+Tea                   3
+French fries          1
+Custard tart          2
+Minestrone soup       1
+Roast chicken         1
+Cajun fries           7
+Lasagne               5
+Salad                 4
+Garlic bread          3
+
+DISHES NOT ORDERED
+==================
+Baked cheesecake
+
+BILLS PRICE STATISTICS (without discounts)
+==========================================
+Most expensive table: Table 1, whose bill is £111.50
+Cheapest table: Table 8, whose bill is £7.50
+The average bill paid is: £56.44
+
+VEGETARIAN DISHES STATISTICS
+============================
+Menu contains 14 veggie dishes out of 21
+78.0% of orders are vegetarian dishes

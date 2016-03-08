@@ -1,0 +1,43 @@
+1; 	Paella;				2
+
+-2;	Minestrone soup;	1
+2;	Minestrone soup;	0
+2;	Minestrone soup;	1
+1;	Steak;				2
+1;	Mushroom risotto;	3
+1;	Grilled seabass;	1
+2;	Roast chicken;		1
+3;	Lasagne;			2
+4;	Roasted vegetables;	3
+4;	Salad;				4
+4;	Cajun fries;		2
+1;	Cajun fries;		2
+3;	French fries;		1
+2;	Custard tart;		1
+2;	Lemon sorbet;		1
+2;	Rhubarb crumble;	2
+3;	Rhubarb crumble;	2
+3;	Rhubarb crumble;	2
+2;	Roast chicken;;
+2;	Rhubarb crumble;	2;	2
+a:	Tuna;				3
+2;	Rhubarb crumble;	a
+4;	Vanilla cheesecake;	2;
+6;	Coffee;				3;		
+3;	Salmon cakes;		1;
+2;	Mushroom risotto;	3;
+5;	Sparkling water;	5;
+3;	Juice;				4;
+1;	Juice;				2;
+2;	Tea;				3;
+5;	Custard tart;		1;
+6;	Garlic bread;		3;
+7;	Mixed olives;		2;
+4;	Lasagne;			3;
+5;	Juice;				5;
+6;	Coke;				1;
+7;	Roasted vegetables;	2;
+8;	Cajun fries;		3;
+4;	Cajun fries;		1;
+7;	Steak;				3;
+6;	Sparkling water;	4;
