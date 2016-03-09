@@ -142,6 +142,10 @@ public class OrderTable {
 		if(set.add(o)){
 			orderTable.put(i, set);
 			Integer value = frequency.putIfAbsent(itemName, o.getQuantity());
+			Log log = Log.getInstance();
+			log.addEntry("\r\nOrder number " + o.getOrderID() +
+					" ('" + itemName + "', x" + o.getQuantity() + ", table " + o.getTableID() +
+					") logged.");
 			if(value!=null)
 				frequency.replace(itemName, value+o.getQuantity());
 		}else{
