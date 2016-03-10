@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Map.Entry;
@@ -40,10 +41,18 @@ public class Aggregator {
 	/**
 	 * Class constructor
 	 */
+	
+	/**
+	 * LinkedList containing all the orders, in the order they were read.
+	 */
+	private LinkedList <Order> orders;
+	
+	
 	public Aggregator() {
 		orderTable = new OrderTable();
 		menuItemMap = new MenuItemMap();
 		discounts = new HashMap<Integer,Integer>();
+		orders = new LinkedList<Order>();
 	}
 
 	/**
@@ -126,6 +135,7 @@ public class Aggregator {
 						if(menuItemMap.containsItem(item)){
 							Order o = new Order(table, item, quantity);
 							orderTable.addOrder(o);
+							orders.add(o);
 						}else{
 							String error = "Error in line " + line + " - There is no item called " + item + " in the menu";
 							System.out.println(error);
@@ -386,5 +396,9 @@ public class Aggregator {
 			return percentage;
 		}else
 			return 0;
+	}
+	
+	public LinkedList<Order> getOrderList(){
+		return orders;
 	}
 }

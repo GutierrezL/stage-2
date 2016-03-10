@@ -28,8 +28,11 @@ public class Manager {
 		collections.populate();
 		ManagerGUI GUI = new ManagerGUI("Restaurant application", collections);
 		GUI.setSize(600, 500);
-		RestaurantGUIView gui = new RestaurantGUIView();
-		gui.setVisible(true);
+		KitchenOrders model = new KitchenOrders(collections.getOrderList()); 
+		MVCRestaurantView view = new MVCRestaurantView(model);
+		MVCRestaurantController controller = new MVCRestaurantController(model, view);   
+		view.setVisible(true);
+
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,7 +23,7 @@ import javax.swing.JTextArea;
  *
  */
 
-public class RestaurantGUIView extends JFrame implements Observer{
+public class MVCRestaurantView extends JFrame implements Observer{
 	//private int tabNo;
 	/**
 	 * Instance variables for GUI
@@ -31,11 +32,13 @@ public class RestaurantGUIView extends JFrame implements Observer{
 	private JTextArea [] tableDisplay;
 	private JScrollPane scrollDown;
 	private JButton getBill;
+	private KitchenOrders model;
+	private LinkedList<Order> ordersInKitchen; 
 		  
     /**
      * Create the frame with its panels.
      */
-    public RestaurantGUIView()
+    public MVCRestaurantView(KitchenOrders k_model)
     {              
         //set up window title
         setTitle("Kitchen Orders");
@@ -43,7 +46,9 @@ public class RestaurantGUIView extends JFrame implements Observer{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(100,500);
         setLocation(10,20);
- 
+        model = k_model;
+        ordersInKitchen = k_model.getOrders();
+
       //add centre panel containing text fields and scroll pane 
       		JPanel centrePanel = new JPanel();
       		//centrePanel.add(new JLabel("Kitchen Orders")); 
