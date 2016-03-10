@@ -6,16 +6,20 @@ import java.awt.event.ActionListener;
  * Class that handles interaction with users and 
  * calls view and model as needed
  */
-public class GUIController {
+public class MVCRestaurantController {
 	
-	private GUIModel model;
-	private RestaurantGUIView view;
+	private KitchenOrders model;
+	private MVCRestaurantView view;
 	
-	public GUIController (GUIModel m, RestaurantGUIView v){
+	public MVCRestaurantController (KitchenOrders m, MVCRestaurantView v){
 		model  = m;
 		view = v;
 		view.kitchenTableOrderListener(new restaurantController());
 		
+		//Starts automatically, if we want it to start with the push of a button
+		//needs to be moved under "actionPerformed"
+		Thread thread = new Thread (model);
+		thread.start();
 	}
 	
 	class restaurantController  implements ActionListener
@@ -23,8 +27,8 @@ public class GUIController {
     public void actionPerformed(ActionEvent e) 
     { 
     	//Threads are implemented here..
-
-		
+    	//Thread thread = new Thread (model);
+		//thread.start();
     }
 }
 

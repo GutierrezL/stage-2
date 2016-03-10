@@ -3,6 +3,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -32,7 +33,7 @@ public class OrderTable {
 	 * ordered.
 	 */
 	private HashMap<String,Integer> frequency;
-
+	
 	/**
 	 * Class constructor
 	 */
@@ -40,6 +41,7 @@ public class OrderTable {
 		orderTable = new TreeMap<Integer,HashSet<Order>>();
 		frequency = new HashMap<String, Integer>();
 	}
+	
 
 	/**
 	 * Returns the whole TreeMap containing all the orders
@@ -59,6 +61,7 @@ public class OrderTable {
 		return frequency;
 	}
 
+	
 	/**
 	 * Returns a Order object with the identifier specified
 	 * @param id	The Order identifier
