@@ -20,5 +20,6 @@ public class Main {
 		
 		Manager manager = new Manager();
 		manager.run();
+		
 	}
 }
