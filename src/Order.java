@@ -143,6 +143,16 @@ public class Order implements Comparable<Order> {
 			+ this.getQuantity();
 	}
 	
+	/**
+	 * Returns a short version of the String containing information of the order
+	 * @return a String consists of all the variables in the Order
+	 */
+	public String printShortInfo(){
+		return this.getOrderID() + "  " + String.format("%-1s", this.getTableID())
+			+ "  " + String.format("%-20s", this.getItemName()) + "  "
+			+ this.getQuantity();
+	}
+	
 	/*
 	 * Method overridden to make our Order class Comparable.
      * Compares this Order object with the specified one in the method call.

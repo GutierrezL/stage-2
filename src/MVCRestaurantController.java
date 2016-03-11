@@ -26,7 +26,7 @@ public class MVCRestaurantController {
 {
     public void actionPerformed(ActionEvent e) 
     { 
-    	//Threads are implemented here..
+    	//If we want to start simulation with the push of a button
     	//Thread thread = new Thread (model);
 		//thread.start();
     }

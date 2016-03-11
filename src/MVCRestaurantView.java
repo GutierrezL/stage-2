@@ -23,7 +23,7 @@ import javax.swing.JTextArea;
  *
  */
 
-public class MVCRestaurantView extends JFrame implements Observer{
+public class MVCRestaurantView extends JFrame implements Observer {
 	//private int tabNo;
 	/**
 	 * Instance variables for GUI
@@ -47,7 +47,8 @@ public class MVCRestaurantView extends JFrame implements Observer{
         setSize(100,500);
         setLocation(10,20);
         model = k_model;
-        ordersInKitchen = k_model.getOrders();
+        model.registerObserver(this);
+        ordersInKitchen = model.getOrdersInKitchen();
 
       //add centre panel containing text fields and scroll pane 
       		JPanel centrePanel = new JPanel();
@@ -105,17 +106,22 @@ public class MVCRestaurantView extends JFrame implements Observer{
 		return customTablePanel;
     }
    
-      //MVC pattern - allows listeners to be added
+    //MVC pattern - allows listeners to be added
     public void kitchenTableOrderListener(ActionListener a) {
         getBill.addActionListener(a);
     }
     
-   
-        //OBSERVER pattern - must provide update methods
+
+    //Required methods for the Observer pattern
     
-    public synchronized void update(Observable o, Object args) {
-    	
-    	}
-    
+    /**
+     * Updates the GUI.
+     */
+	@Override
+	public synchronized void update(Observable o, Object arg) {
+		String report = model.getOrderReport();
+    	kitchenOrders.setText(report);
+	}
+
 
 }
