@@ -26,8 +26,8 @@ public class Manager {
 	 */
 	public void run(){
 		collections.populate();
-		ManagerGUI GUI = new ManagerGUI("Restaurant application", collections);
-		GUI.setSize(600, 500);
+		//ManagerGUI GUI = new ManagerGUI("Restaurant application", collections);
+		//GUI.setSize(600, 500);
 		KitchenOrders model = new KitchenOrders(collections.getOrderList()); 
 		MVCRestaurantView view = new MVCRestaurantView(model);
 		MVCRestaurantController controller = new MVCRestaurantController(model, view);   
