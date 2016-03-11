@@ -39,15 +39,13 @@ public class Aggregator {
 	private HashMap<Integer,Integer> discounts;
 	
 	/**
-	 * Class constructor
-	 */
-	
-	/**
 	 * LinkedList containing all the orders, in the order they were read.
 	 */
 	private LinkedList <Order> orders;
 	
-	
+	/**
+	 * Class constructor
+	 */
 	public Aggregator() {
 		orderTable = new OrderTable();
 		menuItemMap = new MenuItemMap();
@@ -134,8 +132,7 @@ public class Aggregator {
 						String item = parts[1].trim();
 						if(menuItemMap.containsItem(item)){
 							Order o = new Order(table, item, quantity);
-							orderTable.addOrder(o);
-							orders.add(o);
+							if(orderTable.addOrder(o))	orders.add(o);
 						}else{
 							String error = "Error in line " + line + " - There is no item called " + item + " in the menu";
 							System.out.println(error);
@@ -205,6 +202,10 @@ public class Aggregator {
 			}
 		}
 		return total;
+	}
+	
+	public LinkedList<Order> getOrderList(){
+		return orders;
 	}
 	
 	/**
@@ -396,9 +397,5 @@ public class Aggregator {
 			return percentage;
 		}else
 			return 0;
-	}
-	
-	public LinkedList<Order> getOrderList(){
-		return orders;
 	}
 }

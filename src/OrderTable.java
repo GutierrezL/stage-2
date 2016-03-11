@@ -137,7 +137,7 @@ public class OrderTable {
 	 * an entry for that item in the frequencies collection, or updates its existing one.
 	 * @param o	The new order to be added
 	 */
-	public void addOrder(Order o){
+	public boolean addOrder(Order o){
 		Integer i = new Integer(o.getTableID());
 		String itemName = o.getItemName();
 		HashSet<Order> set = orderTable.get(i);
@@ -151,10 +151,12 @@ public class OrderTable {
 					") logged.");
 			if(value!=null)
 				frequency.replace(itemName, value+o.getQuantity());
+			return true;
 		}else{
 			// It would not process that line, but print the error message
 			String error = "Duplicate value: could not add '" + itemName + "' in table " + i;
 			System.out.println(error);
+			return false;
 		}
 	}
 	

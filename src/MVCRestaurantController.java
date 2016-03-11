@@ -18,8 +18,8 @@ public class MVCRestaurantController {
 		
 		//Starts automatically, if we want it to start with the push of a button
 		//needs to be moved under "actionPerformed"
-		Thread thread = new Thread (model);
-		thread.start();
+		//Thread thread = new Thread (model);
+		//thread.start();
 	}
 	
 	class restaurantController  implements ActionListener
@@ -27,8 +27,8 @@ public class MVCRestaurantController {
     public void actionPerformed(ActionEvent e) 
     { 
     	//If we want to start simulation with the push of a button
-    	//Thread thread = new Thread (model);
-		//thread.start();
+    	Thread thread = new Thread (model);
+		thread.start();
     }
 }
 

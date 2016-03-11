@@ -33,7 +33,6 @@ public class MVCRestaurantView extends JFrame implements Observer {
 	private JScrollPane scrollDown;
 	private JButton getBill;
 	private KitchenOrders model;
-	private LinkedList<Order> ordersInKitchen; 
 		  
     /**
      * Create the frame with its panels.
@@ -48,7 +47,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
         setLocation(10,20);
         model = k_model;
         model.registerObserver(this);
-        ordersInKitchen = model.getOrdersInKitchen();
+        //ordersInKitchen = model.getOrdersInKitchen();
 
       //add centre panel containing text fields and scroll pane 
       		JPanel centrePanel = new JPanel();
@@ -117,11 +116,13 @@ public class MVCRestaurantView extends JFrame implements Observer {
     /**
      * Updates the GUI.
      */
-	@Override
-	public synchronized void update(Observable o, Object arg) {
-		String report = model.getOrderReport();
-    	kitchenOrders.setText(report);
-	}
+    public synchronized void update(Observable o, Object args) {
+    	this.kitchenOrders.setText(model.getOrderReport());
+    	for (int i = 0; i < model.getListOfTables().getSize(); i++) {
+    		String report = model.getListOfTables().get(i).getOrderList();
+			this.tableDisplay[i].setText(report);	
+    	}
+    }
 
 
 }
