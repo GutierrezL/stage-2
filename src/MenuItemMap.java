@@ -1,5 +1,9 @@
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -150,5 +154,25 @@ public class MenuItemMap {
 	public boolean containsItem(String item_name){
 	       return menuItemMap.containsKey(item_name);
 	}
+	
+	/**
+	 * Returns a list of the key values (MenuItem names).
+	 * @return a List consisting of Strings containing the MenuITem names.
+	 */
+	public List<String> keySet() {
+		List<String> key_set = (List<String>) menuItemMap.keySet();
+		return key_set;
+	}
+	
+	/**
+	 * Returns a random MenuItem name.
+	 * @return String containing random MenuItem name.
+	 */
+	public String getRandomItemName(){
+    	Random r = new Random();
+    	List<String> keys      = new ArrayList<String>(menuItemMap.keySet());
+    	String randomKey = keys.get(r.nextInt(keys.size()));
+    	return randomKey;
+    }
 }
 

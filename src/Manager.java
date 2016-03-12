@@ -23,12 +23,13 @@ public class Manager {
 	/**
 	 * Calls the population method for the different collections of orders and items.
 	 * In addition, creates the user interface
+	 * @throws InvalidPositiveInteger 
 	 */
 	public void run(){
 		collections.populate();
 		//ManagerGUI GUI = new ManagerGUI("Restaurant application", collections);
 		//GUI.setSize(600, 500);
-		KitchenOrders model = new KitchenOrders(collections.getOrderList()); 
+		KitchenOrders model = new KitchenOrders(collections.getOrderList());
 		MVCRestaurantView view = new MVCRestaurantView(model);
 		MVCRestaurantController controller = new MVCRestaurantController(model, view);   
 		view.setVisible(true);
