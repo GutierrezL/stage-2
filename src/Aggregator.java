@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Map.Entry;
+import java.util.Random;
 
 /**
 * <h1>Aggregator</h1>
@@ -397,5 +398,28 @@ public class Aggregator {
 			return percentage;
 		}else
 			return 0;
+	}
+	
+	/**
+	 * Returns the MenuItemMap with all the MenuItem-s.
+	 * @return the MenuItemMap containing all the MenuItem-s.
+	 */
+	public MenuItemMap getMenuItemMap(){
+		return menuItemMap;
+	}
+	
+	
+	/**
+	 * Creates a random order.
+	 * @return a random order.
+	 * @throws InvalidPositiveInteger
+	 */
+	public Order getRandomOrder() throws InvalidPositiveInteger{
+		Random r1 = new Random();
+		int t = r1.nextInt(6) + 1;
+		Random r2 = new Random();
+		int q = r2.nextInt(4)+1;
+		Order o = new Order (t, menuItemMap.getRandomItemName(),q);
+		return o;
 	}
 }

@@ -55,8 +55,10 @@ public class KitchenOrders extends Observable implements  Runnable, Subject {
 	 */
 	public void run() {
 		
+		
 		Thread kitchOrderThread = new Thread();
 		kitchOrderThread.start();
+		
 		
 		for (Order o: orders){			
 			receiveOrder(o);
@@ -121,7 +123,7 @@ public class KitchenOrders extends Observable implements  Runnable, Subject {
 	 */
 	public synchronized void removeFirst() {
 		if(ordersInKitchen.isEmpty())	this.setFinished();
-		else	ordersInKitchen.removeFirst();
+		else ordersInKitchen.removeFirst();
 		setChanged();
 		notifyObservers();
     	clearChanged();
