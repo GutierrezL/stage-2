@@ -34,6 +34,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
 	private JTextArea [] tableDisplay;
 	private JScrollPane scrollDown;
 	private JButton getBill,startSimulation; 
+	private JComboBox <String> dishes;
 	
 	private OrderGenerator model;
 	private String report;
@@ -78,21 +79,33 @@ public class MVCRestaurantView extends JFrame implements Observer {
             
         //set up south panel containing a buttons and a combo boxes
          JPanel southPanel = new JPanel();
+         
+  
+         
          startSimulation = new JButton ("Start");
          southPanel.add(startSimulation);
-         southPanel.add(new JLabel("Table Number"));
+         
+       //Add combo box to select orders from either text file or randomly and label
+         southPanel.add(new JLabel("Dishes generated:"));  
+         //create combo box    
+         dishes = new JComboBox<String>();
+         // add items to the combo box;
+         dishes.addItem("from a textfile");
+         dishes.addItem("at random");
+         southPanel.add(dishes, BorderLayout.EAST);
+         
+         
+         southPanel.add(new JLabel("Table:"));
                         
         //create first combo box to allow for selection of table ID in order to get bill 
         JComboBox<String> tables = new JComboBox<String>();
         // add items to the combo box
-        tables.addItem("Select Table No.");
-        tables.addItem("Table 1");
-        tables.addItem("Table 2");
-        tables.addItem("Table 3");
-        tables.addItem("Table 4");
-        tables.addItem("Table 5");
-        tables.addItem("Table 6");
-            
+        tables.addItem("All");
+        for (int i = 1; i < 7; i++){
+        	tables.addItem("#" + i);
+        }
+
+        
         //add first combo box to south panel
         southPanel.add(tables, BorderLayout.BEFORE_FIRST_LINE);
         centrePanel.add(customTabDisplay(), BorderLayout.EAST);
@@ -101,16 +114,8 @@ public class MVCRestaurantView extends JFrame implements Observer {
         southPanel.add(getBill); 
         getBill.setEnabled(false);
         contentPane.add(southPanel, BorderLayout.SOUTH);
-            
-        //add second combo box to select orders from either text file or randomly and label
-        southPanel.add(new JLabel("Dishes"));  
-        //create combo box    
-        JComboBox<String> dishes = new JComboBox<String>();
-        // add items to the combo box;
-        dishes.addItem("Textfile");
-        dishes.addItem("Random");
-        southPanel.add(dishes, BorderLayout.EAST);
-                 
+          
+                       
         //pack and set visible
         pack();
         setVisible(true);
@@ -139,6 +144,13 @@ public class MVCRestaurantView extends JFrame implements Observer {
     }
     
 
+    public String getPopulateMethod(){
+    	//String varName = (String) dishes.getSelectedItem();
+    	String value = dishes.getSelectedItem().toString();
+    	return value;
+    }
+    
+    
     /**
      * Enables the Get Bill button in the GUI.
      */

@@ -24,6 +24,9 @@ public class MVCRestaurantController {
     public void actionPerformed(ActionEvent ae) 
     { 
 
+    	String value = view.getPopulateMethod();
+    	model.setPopulateMethod(value);
+    	
     	Thread kitchOrderThread = new Thread(model);
 		kitchOrderThread.start();
 	

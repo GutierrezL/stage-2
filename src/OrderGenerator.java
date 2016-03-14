@@ -29,6 +29,7 @@ public class OrderGenerator extends Observable implements Subject, Runnable {
 	private TableList tables = new TableList();
 	private String report;
 	Log log = Log.getInstance();
+	private String populateMethod;
 	
 
 	/**
@@ -44,6 +45,7 @@ public class OrderGenerator extends Observable implements Subject, Runnable {
 		discounts = new HashMap<Integer,Integer>();
 		ordersInKitchen = new LinkedList<Order>();
 		report = "";
+		populateMethod = "";
 	}
 	
 	/**
@@ -68,6 +70,14 @@ public class OrderGenerator extends Observable implements Subject, Runnable {
 	 */
 	public LinkedList <Order> getOrdersInKitchen(){
 		return ordersInKitchen;
+	}
+	
+	/**
+	 * Sets the String describing how the orders should be generated.
+	 * @param value String value describing how the orders should be generated.
+	 */
+	public void setPopulateMethod(String value){
+		populateMethod = value;
 	}
 	
 	/**
@@ -225,18 +235,21 @@ public class OrderGenerator extends Observable implements Subject, Runnable {
 		 */
 		@Override
 		public void run() {
-			System.out.println("Starting to read menu");
+			//Reads the menu input file.
 			this.populateMenuItems();
-			//System.out.println("Starting to read orders");
-			this.populateWithFile();
-			/**
-			try {
-				this.populateWithGenerator();
-			} catch (InvalidPositiveInteger e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
+			System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + populateMethod + "%%%%%%%%%%%%%%%%%%%%%%");
+			if (populateMethod.equals("from a textfile")){
+				//Reads the order input file.
+				this.populateWithFile();
+			} else {
+				try {
+					this.populateWithGenerator();
+				} catch (InvalidPositiveInteger e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-			*/
 		}
 		
 		

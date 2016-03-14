@@ -352,20 +352,6 @@ public class Aggregator  {
 	public MenuItemMap getMenuItemMap(){
 		return menuItemMap;
 	}
-	
-	
-	/**
-	 * Creates a random order.
-	 * @return a random order.
-	 * @throws InvalidPositiveInteger
-	 */
-	public Order getRandomOrder() throws InvalidPositiveInteger{
-		Random r1 = new Random();
-		int t = r1.nextInt(6) + 1;
-		Random r2 = new Random();
-		int q = r2.nextInt(4)+1;
-		Order o = new Order (t, menuItemMap.getRandomItemName(),q);
-		return o;
-	}
+
 
 }
