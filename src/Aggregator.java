@@ -6,7 +6,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Scanner;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -21,8 +24,7 @@ import java.util.Random;
 * @version 1.0
 * @since 2016-02-16
 */
-public class Aggregator {
-
+public class Aggregator  {	
 	/**
 	 * OrderTable variable containing information of all the orders
 	 */
@@ -108,63 +110,6 @@ public class Aggregator {
 		 }
 	}
 	
-	/**
-	 * This method populates the collections of orders and items using input text files
-	 */
-	public void populate() {
-		// Menu population
-		MenuScanner s = new MenuScanner();
-		menuItemMap = s.getMenuEntries();
-		try {
-			File f = new File("OrderInput.txt");
-			Scanner scanner = new Scanner(f);
-			int line = 0;
-			while (scanner.hasNextLine()) {
-				line++;
-				// Firstly, read the line and process it
-				String inputLine = scanner.nextLine();
-				// If it is a blank line, ignore it
-				if (inputLine.length() != 0){
-					try {
-						String parts [] = inputLine.split(";");
-						// Remove spaces and get an integer from those Strings
-						int table = Integer.parseInt(parts[0].trim());
-						int quantity = Integer.parseInt(parts[2].trim());
-						String item = parts[1].trim();
-						if(menuItemMap.containsItem(item)){
-							Order o = new Order(table, item, quantity);
-							if(orderTable.addOrder(o))	orders.add(o);
-						}else{
-							String error = "Error in line " + line + " - There is no item called " + item + " in the menu";
-							System.out.println(error);
-						}
-					}					
-					// This catches trying to convert a String to an integer
-					catch (NumberFormatException nfe) {
-						// It would not process that line, but print the error message
-						String error = "Number conversion error was found in line " + line + " - " + nfe.getMessage();
-						System.out.println(error);
-					}
-					// This catches missing items (if items < 3)
-					catch (ArrayIndexOutOfBoundsException air) {
-						// It would not process that line, but print the error message
-						String error = "Not enough items in line " + line + " (index position : " + air.getMessage() + ")";
-						System.out.println(error);
-					}
-					catch(InvalidPositiveInteger ipi){
-						// It would not process that line, but print the error message
-						System.out.println(ipi.getMessage());
-					}
-				}
-			}
-			scanner.close();
-		}
-		// This catches if the file is not found
-		catch (FileNotFoundException fnf){
-			System.out.println("File OrderInput.txt could not be found\n");
-			System.exit(0);
-		}
-	}
 
 	/**
 	 * Method used to update the discounts collection. It will be used in the GUI 
@@ -422,4 +367,5 @@ public class Aggregator {
 		Order o = new Order (t, menuItemMap.getRandomItemName(),q);
 		return o;
 	}
+
 }

@@ -33,13 +33,16 @@ public class MVCRestaurantView extends JFrame implements Observer {
 	private JTextArea kitchenOrders;
 	private JTextArea [] tableDisplay;
 	private JScrollPane scrollDown;
-	private JButton getBill,startSimulation;
-	private KitchenOrders model;
+	private JButton getBill,startSimulation; 
+	
+	private OrderGenerator model;
+	private LinkedList orders;
+	private String report;
 		  
     /**
      * Create the frame with its panels.
      */
-    public MVCRestaurantView(KitchenOrders k_model)
+    public MVCRestaurantView(OrderGenerator model)
     {              
         //set up window title
         setTitle("Kitchen Orders Simulation");
@@ -47,9 +50,11 @@ public class MVCRestaurantView extends JFrame implements Observer {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//set window size
 		setPreferredSize(new Dimension(1100, 620));
-		model = k_model;
+		this.model = model;
         model.registerObserver(this);
-        //ordersInKitchen = model.getOrdersInKitchen();
+        orders = model.getOrdersInKitchen();
+        report = "";
+
 
         /**
          * Add centre panel containing text field and scroll pane 
@@ -96,14 +101,14 @@ public class MVCRestaurantView extends JFrame implements Observer {
         //button to get bill for table selected    
         getBill = new JButton("Get Bill");   
         southPanel.add(getBill); 
+        getBill.setEnabled(false);
         contentPane.add(southPanel, BorderLayout.SOUTH);
             
         //add second combo box to select orders from either text file or randomly and label
         southPanel.add(new JLabel("Dishes"));  
         //create combo box    
         JComboBox<String> dishes = new JComboBox<String>();
-        // add items to the combo box
-        dishes.addItem("Select");
+        // add items to the combo box;
         dishes.addItem("Textfile");
         dishes.addItem("Random");
         southPanel.add(dishes, BorderLayout.EAST);
@@ -131,23 +136,39 @@ public class MVCRestaurantView extends JFrame implements Observer {
     }
    
     //MVC pattern - allows listeners to be added
-    public void kitchenTableOrderListener(ActionListener a) {
+    public void kitchenOrderListener(ActionListener a) {
     	startSimulation.addActionListener(a);
     }
     
 
+    public void disableGetBillButton() {
+    	getBill.setEnabled(false);
+    }
+    
+    public void enableGetBillButton(){
+    	getBill.setEnabled(true);
+    }
+    
     //Required methods for the Observer pattern
     
     /**
      * Updates the GUI.
      */
-    public synchronized void update(Observable o, Object args) {
-    	this.kitchenOrders.setText(model.getOrderReport());
+    public synchronized void update(Observable o,  Object arg) {
+    	report = model.getReport();
+    	kitchenOrders.setText(report);
+    	
+    	try {
+			wait(1500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    	/**
     	for (int i = 0; i < model.getListOfTables().getSize(); i++) {
     		String report = model.getListOfTables().get(i).getOrderList();
 			this.tableDisplay[i].setText(report);	
     	}
+    	*/
     }
-
 
 }

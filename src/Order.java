@@ -148,9 +148,8 @@ public class Order implements Comparable<Order> {
 	 * @return a String consists of all the variables in the Order
 	 */
 	public String printShortInfo(){
-		return this.getOrderID() + "  " + String.format("%-1s", this.getTableID())
-			+ "  " + String.format("%-20s", this.getItemName()) + "  "
-			+ this.getQuantity();
+		return String.format("%-10s", this.getOrderID()) + String.format("%-6s", this.getTableID())
+			+ String.format("%-20s", this.getItemName()) + this.getQuantity();
 	}
 	
 	/*

@@ -6,9 +6,9 @@ public class Table implements Runnable{
 	private int tableID;     //id
 	private ArrayList<Order> ordersMade;  //list of orders made
 	//the kitchen, so tables can check whether finished and can receive an order
-	private KitchenOrders kitchen;  
+	private OrderGenerator orderGen;
 	
-	public Table(int t, KitchenOrders k) {
+	public Table(int t, OrderGenerator og) {
 		//store id
 		tableID= t;
 		//each table has list of orders made, initially empty
@@ -19,7 +19,7 @@ public class Table implements Runnable{
 		waitTime = 3000 + 1000*(tableID%2);
 
 		//store kitchen, so customer can submit a bid
-		this.kitchen = k;
+		orderGen = og;
 	}
 	
 	//add a bid to list of bids made
@@ -47,7 +47,7 @@ public class Table implements Runnable{
 	//Tables receive orders repeatedly until kitchen is empty
 	public void run() {
 		//loop while kitchen not empty
-		while (!kitchen.isFinished()) {
+		while (!orderGen.isFinished()) {
 			try {
 				if (tableID/2 == 0) {  //vary when they sleep to get variation
 					//set a pause before the order
@@ -56,13 +56,13 @@ public class Table implements Runnable{
 
 				//RECEIVE AN ORDER
 				//get top order
-				Order firstOrder = kitchen.orderOnTop();
-				if(firstOrder.getTableID()==this.tableID){
+				//Order firstOrder = kitchen.orderOnTop();
+				//if(firstOrder.getTableID()==this.tableID){
 					//add the order to the table
-					this.addOrder(firstOrder);
+					//this.addOrder(firstOrder);
 					//delete that order in kitchen
-					kitchen.removeFirst();
-				}
+					//kitchen.removeFirst();
+				//}
 
 				if (tableID/2 != 0) {
 					//set a pause after the order

@@ -16,7 +16,7 @@ public class AggregatorTest {
 	@Test
 	public void testGetTableTotal() {
 		Aggregator collections = new Aggregator();
-		collections.populate();
+		//collections.populate();
 		assertEquals(0,collections.getTableTotal(-1),DELTA);
 		double total1 = collections.getTableTotal(1);
 		assertEquals(total1, collections.getTableTotal(1),DELTA);
@@ -29,7 +29,7 @@ public class AggregatorTest {
 	@Test
 	public void testGetTableDiscountedTotal() {
 		Aggregator collections = new Aggregator();
-		collections.populate();
+		//collections.populate();
 		assertEquals(0,collections.getTableDiscountedTotal(-1),DELTA);
 		double total1 = collections.getTableDiscountedTotal(1);
 		assertEquals(total1, collections.getTableDiscountedTotal(1),DELTA);

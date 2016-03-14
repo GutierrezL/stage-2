@@ -109,12 +109,6 @@ public class ManagerGUI extends JFrame implements ActionListener{
 			generateBill();
 		}else if(e.getSource() == close){
 			collections.writer("Report.txt", collections.reporter());
-			try {
-				Log.getInstance().outputLog();
-			} catch (FileNotFoundException | UnsupportedEncodingException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 			System.exit(0);
 		}
 	}

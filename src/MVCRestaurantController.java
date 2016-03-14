@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author Otonye Manuel
@@ -8,31 +10,39 @@ import java.awt.event.ActionListener;
  */
 public class MVCRestaurantController {
 	
-	private KitchenOrders model;
+	private OrderGenerator model;
 	private MVCRestaurantView view;
+	private boolean finished = false;
 	
-	public MVCRestaurantController (KitchenOrders m, MVCRestaurantView v){
-		model  = m;
+	public MVCRestaurantController (OrderGenerator m, MVCRestaurantView v){
+		model = m;
 		view = v;
-		view.kitchenTableOrderListener(new restaurantController());
-		
-		//Starts automatically, if we want it to start with the push of a button
-		//needs to be moved under "actionPerformed"
-		//Thread thread = new Thread (model);
-		//thread.start();
+		view.kitchenOrderListener(new restaurantController());
 	}
 	
 	class restaurantController  implements ActionListener
 {
-    public void actionPerformed(ActionEvent e) 
+    public void actionPerformed(ActionEvent ae) 
     { 
-    	//If we want to start simulation with the push of a button
-    	Thread thread = new Thread (model);
-		thread.start();
+
+    	Thread kitchOrderThread = new Thread(model);
+		kitchOrderThread.start();
+	
+		try {
+    		Thread.sleep(10000);
+    	} catch (Exception e) {
+			System.out.println("KitchenOrder thread exception" + e.getStackTrace());
+		}
+    	
+		System.out.println("The kitchen is closing.");
+    	finished = true;
+    	view.enableGetBillButton();
+    	try {
+			Log.getInstance().outputLog();
+		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
     }
+ }
 }
 
-
-
-
-}

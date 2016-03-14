@@ -9,7 +9,7 @@ public class Log {
 	
 	//private constructor
 	private Log(){
-		logText = "THE DAILY LOG";
+		logText = "THE DAILY LOG \r\n";
 	}
 	
 	/**
