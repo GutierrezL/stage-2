@@ -2,11 +2,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 import java.util.Scanner;
 
 
@@ -71,15 +73,13 @@ public class OrderGenerator extends Observable implements Subject, Runnable {
 	/**
 	 * This method populates the collections of orders and items using input text files
 	 */
-	public void populate() {
-		// Menu population
-		MenuScanner s = new MenuScanner();
-		menuItemMap = s.getMenuEntries();
+	public void populateWithFile() {
 		try {
 			File f = new File("OrderInput.txt");
 			Scanner scanner = new Scanner(f);
 			int line = 0;
-			while (scanner.hasNextLine()) {
+			//Checks, if kitchen has not closed and if there is a next line.
+			while (!this.isFinished() && scanner.hasNextLine()) {
 				line++;
 				// Firstly, read the line and process it
 				String inputLine = scanner.nextLine();
@@ -91,11 +91,11 @@ public class OrderGenerator extends Observable implements Subject, Runnable {
 						int table = Integer.parseInt(parts[0].trim());
 						int quantity = Integer.parseInt(parts[2].trim());
 						String item = parts[1].trim();
-						if(menuItemMap.containsItem(item)){
+						//The restaurant has 6 table and 
+						if(menuItemMap.containsItem(item) && (7>table && table>0) && (quantity>0)){
 							Order o = new Order(table, item, quantity);
-							if(orderTable.addOrder(o))	{
-								this.receiveOrder(o);
-								}
+							//Checks, if order has been successfully added to orderTable
+							if(orderTable.addOrder(o))	{this.receiveOrder(o);}
 						}else{
 							String error = "Error in line " + line + " - There is no item called " + item + " in the menu";
 							System.out.println(error);
@@ -129,6 +129,29 @@ public class OrderGenerator extends Observable implements Subject, Runnable {
 	}
 	
 	/**
+	 * Populates the collections of orders and items by generating random orders.
+	 * @throws InvalidPositiveInteger 
+	 */
+	public void populateWithGenerator() throws InvalidPositiveInteger {
+		while (!this.isFinished()){
+			Order o = this.generateRandomOrder();
+			if(orderTable.addOrder(o))	{
+				this.receiveOrder(o);
+			}
+		}
+	}
+	
+	/**
+	 * Reads the items on the menu from an input text file and adds them to
+	 * a collection (menuItemMap).
+	 */
+	public void populateMenuItems(){
+		// Menu population
+		MenuScanner s = new MenuScanner();
+		menuItemMap = s.getMenuEntries();
+	}
+	
+	/**
 	 * Gets the next order.
 	 * Once this method is started, it should be allowed to finish.
 	 * @param o the order to be processed
@@ -142,8 +165,26 @@ public class OrderGenerator extends Observable implements Subject, Runnable {
 		
 		setChanged();
 		notifyObservers();
-    	clearChanged();
+		clearChanged();
+		
 	}
+	
+	/**
+	 * Creates a random order.
+	 * @return a random order.
+	 * @throws InvalidPositiveInteger
+	 */
+	public Order generateRandomOrder() throws InvalidPositiveInteger{
+		//Generates a random table number from 1 to 6.
+		Random r1 = new Random();
+		int t = r1.nextInt(6) + 1;
+		//Generates a random quantity from 1 to 10.
+		Random r2 = new Random();
+		int q = r2.nextInt(10)+1;
+		Order o = new Order (t, menuItemMap.getRandomItemName(),q);
+		return o;
+	}
+
 	
 	
 		/**
@@ -184,7 +225,18 @@ public class OrderGenerator extends Observable implements Subject, Runnable {
 		 */
 		@Override
 		public void run() {
-			this.populate();
+			System.out.println("Starting to read menu");
+			this.populateMenuItems();
+			//System.out.println("Starting to read orders");
+			this.populateWithFile();
+			/**
+			try {
+				this.populateWithGenerator();
+			} catch (InvalidPositiveInteger e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			*/
 		}
 		
 		

@@ -36,7 +36,6 @@ public class MVCRestaurantView extends JFrame implements Observer {
 	private JButton getBill,startSimulation; 
 	
 	private OrderGenerator model;
-	private LinkedList orders;
 	private String report;
 		  
     /**
@@ -52,7 +51,6 @@ public class MVCRestaurantView extends JFrame implements Observer {
 		setPreferredSize(new Dimension(1100, 620));
 		this.model = model;
         model.registerObserver(this);
-        orders = model.getOrdersInKitchen();
         report = "";
 
 
@@ -141,10 +139,9 @@ public class MVCRestaurantView extends JFrame implements Observer {
     }
     
 
-    public void disableGetBillButton() {
-    	getBill.setEnabled(false);
-    }
-    
+    /**
+     * Enables the Get Bill button in the GUI.
+     */
     public void enableGetBillButton(){
     	getBill.setEnabled(true);
     }
@@ -156,11 +153,13 @@ public class MVCRestaurantView extends JFrame implements Observer {
      */
     public synchronized void update(Observable o,  Object arg) {
     	report = model.getReport();
-    	kitchenOrders.setText(report);
+    	System.out.println(report);
+    	this.kitchenOrders.setText(report);
     	
     	try {
-			wait(1500);
+			wait(3000);
 		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	/**

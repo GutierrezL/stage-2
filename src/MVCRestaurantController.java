@@ -12,7 +12,6 @@ public class MVCRestaurantController {
 	
 	private OrderGenerator model;
 	private MVCRestaurantView view;
-	private boolean finished = false;
 	
 	public MVCRestaurantController (OrderGenerator m, MVCRestaurantView v){
 		model = m;
@@ -35,13 +34,13 @@ public class MVCRestaurantController {
 		}
     	
 		System.out.println("The kitchen is closing.");
-    	finished = true;
+    	model.setFinished();
     	view.enableGetBillButton();
     	try {
 			Log.getInstance().outputLog();
 		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
 			e1.printStackTrace();
-		}
+		} 
     }
  }
 }

@@ -38,7 +38,7 @@ public class Order implements Comparable<Order> {
 	/**
 	 * Last order identifier used
 	 */
-	private static String lastID = "O00000000";
+	private static String lastID = "O00000001";
 	
 	// CONSTRUCTORS
 	/**
