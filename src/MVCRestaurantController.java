@@ -27,17 +27,8 @@ public class MVCRestaurantController{
     	String value = view.getPopulateMethod();
     	model.setPopulateMethod(value);
     	
-    	Thread kitchOrderThread = new Thread(model);
-		kitchOrderThread.start();
-		
-		try {
-    		Thread.sleep(10000);
-    	} catch (Exception e) {
-			System.out.println("KitchenOrder thread exception" + e.getStackTrace());
-		}
-    	
-		System.out.println("The kitchen is closing.");
-    	model.setFinished();
+		model.start();
+    
     	view.enableGetBillButton();
     	try {
 			Log.getInstance().outputLog();

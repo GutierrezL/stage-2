@@ -18,12 +18,10 @@ import java.util.Observer;
 import javax.swing.SwingUtilities;
 
 
-public class OrderGenerator extends Observable implements Runnable {
+public class OrderGenerator extends Observable{
 	
 	//Set to true when the kitchen closes, i.e. no more orders accepted
 	private boolean finished;
-	private MVCRestaurantView view;
-
 	//OrderTable variable containing information of all the orders
 	private OrderTable orderTable;
 	//Instance variable which stores all the items in the menu
@@ -50,11 +48,12 @@ public class OrderGenerator extends Observable implements Runnable {
 	 */
 	private HashMap<Integer,Integer> discounts;
 	
-	
 	public OrderGenerator() {
 		
 		orderTable = new OrderTable();
 		menuItemMap = new MenuItemMap();
+		MenuScanner s = new MenuScanner();
+		menuItemMap = s.getMenuEntries();
 		discounts = new HashMap<Integer,Integer>();
 		ordersInKitchen = new LinkedList<Order>();
 		report = "";
@@ -87,6 +86,9 @@ public class OrderGenerator extends Observable implements Runnable {
 			return startSimulation;
 		}
 
+		public void setStartSimulation() {
+			this.startSimulation = true;
+		}
 	/**
 	 * Indicates the end of the working hours of the kitchen, i.e. no more orders accepted.	
 	 */
@@ -174,23 +176,14 @@ public class OrderGenerator extends Observable implements Runnable {
 	 * Populates the collections of orders and items by generating random orders.
 	 * @throws InvalidPositiveInteger 
 	 */
-	public void populateWithGenerator() throws InvalidPositiveInteger {
-		while (!this.isFinished()){
-			Order o = this.generateRandomOrder();
-			if(orderTable.addOrder(o))	{
-				this.receiveOrder(o);
-			}
+	public synchronized void populateWithGenerator() throws InvalidPositiveInteger {
+		Order o = this.generateRandomOrder();
+		if(orderTable.addOrder(o))	{
+			this.receiveOrder(o);
 		}
-	}
-	
-	/**
-	 * Reads the items on the menu from an input text file and adds them to
-	 * a collection (menuItemMap).
-	 */
-	public void populateMenuItems(){
-		// Menu population
-		MenuScanner s = new MenuScanner();
-		menuItemMap = s.getMenuEntries();
+		setChanged();
+		notifyObservers();
+    	clearChanged();
 	}
 	
 	public void setHatchFinished() {
@@ -227,11 +220,8 @@ public class OrderGenerator extends Observable implements Runnable {
 		}
 
 		
-	@Override
-	/**
-	 * The thread run method.
-	 */
-	public void run() {
+
+	public void start() {
 		Thread kitchOrderThread = new Thread();
 		kitchOrderThread.start();
 		
@@ -288,10 +278,6 @@ public class OrderGenerator extends Observable implements Runnable {
 		setChanged();
 		notifyObservers();
 		clearChanged();
-		
-		int waitingTime = 1000;
-    	try { Thread.sleep(waitingTime); }
-		catch (InterruptedException e) {}
 	}
 	
 	
@@ -321,27 +307,15 @@ public class OrderGenerator extends Observable implements Runnable {
 		 * @return String report of orders in the kitchen.
 		 */
 		public String getReport(){
-			return report;
-		}
-
-		///////////////////////////////////////////////////////////////////////////////////////////
-		
-			
-			
-			/**
-			this.populateMenuItems();
-			if (populateMethod.equals("from a textfile")){
-				//Reads the order input file.
-				this.populateWithFile();
-			} else {
-				try {
-					this.populateWithGenerator();
-				} catch (InvalidPositiveInteger e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				String report = "LIST OF ORDERS IN THE KITCHEN \r\n" + String.format("%-9s", "ID")+
+						String.format("%-5s", "TABLE")+ String.format("%-22s", "QUANTITY")
+						+ "QUANT \r\n";
+				for (Order ord: ordersInKitchen) {
+					report += ord.printShortInfo() + "\r\n";
 				}
-			}
-			*/
+				return report;	
+			
+		}
 		
 		
 		public String getPopulateMethod(){
