@@ -30,6 +30,8 @@ public class OrderGenerator extends Observable{
 	//Set to true when the kitchen closes, i.e. no more orders accepted
 	private boolean startSimulation;
 	private boolean hatchFinished;
+	//The duration of the simulation in seconds
+	private int kitchOpenTime;
 	
 	private static final String orderTitles = String.format("%-9s", "ID")+
 			String.format("%-7s", "TABLE")+ String.format("%-22s", "ITEM NAME") + 
@@ -106,6 +108,23 @@ public class OrderGenerator extends Observable{
 	 */
 	public void setPopulateMethod(String value){
 		populateMethod = value;
+	}
+	
+	/**
+	 * Sets the duration of simulation in seconds.
+	 * @param value String value describing how the orders should be generated.
+	 */
+	public void setKitchOpenTime(String value){
+		int time = Integer.parseInt(value.trim());
+		kitchOpenTime = time;
+	}
+	
+	/**
+	 * Returns the duration in seconds for which the kitchen is open in the simulation.
+	 * @return integer containing duration of kitchen opening time in seconds.
+	 */
+	public int getKitchOpenTime(){
+		return kitchOpenTime;
 	}
 	
 	/**
