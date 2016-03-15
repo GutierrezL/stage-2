@@ -23,6 +23,7 @@ public class Manager {
 	/**
 	 * Calls the population method for the different collections of orders and items.
 	 * In addition, creates the user interface
+	 * @throws InvalidPositiveInteger 
 	 */
 	public void run(){
 		collections.populate();

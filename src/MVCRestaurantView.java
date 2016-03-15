@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -24,7 +26,7 @@ import javax.swing.JTextArea;
  */
 
 public class MVCRestaurantView extends JFrame implements Observer {
-	//private int tabNo;
+
 	/**
 	 * Instance variables for GUI
 	 */
@@ -32,8 +34,8 @@ public class MVCRestaurantView extends JFrame implements Observer {
 	private JTextArea hatchOrders;
 	private JTextArea [] tableDisplay;
 	private JScrollPane scrollDown;
-	private JButton getBill;
 	private OrderGenerator model;
+	private JButton getBill,startSimulation;
 		  
     /**
      * Create the frame with its panels.
@@ -41,7 +43,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
     public MVCRestaurantView(OrderGenerator k_model)
     {              
         //set up window title
-        setTitle("Kitchen Orders");
+        setTitle("Kitchen Orders Simulation");
         //To ensure that when window is closed program ends
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(100,500);
@@ -68,28 +70,47 @@ public class MVCRestaurantView extends JFrame implements Observer {
        
        //add scroll pane to content pane     
             scrollDown = new JScrollPane();
-            centrePanel.add(scrollDown,BorderLayout.CENTER);
+            centrePanel.add(scrollDown,BorderLayout.CENTER);            
+         //add scroll pane to content pane     
+         scrollDown = new JScrollPane(kitchenOrders);
+         scrollDown.setPreferredSize( new Dimension( 350, 500 ) );
+         centrePanel.add(scrollDown,BorderLayout.CENTER);
+          
             
-        //set up south panel containing a button and a combo box
-            JPanel southPanel = new JPanel();
-            getBill = new JButton("Get Bill");   
-            southPanel.add(getBill);   
-            contentPane.add(southPanel, BorderLayout.SOUTH);
-            
-         //create combo box    
-            JComboBox<String> tables = new JComboBox<String>();
+        //set up south panel containing a buttons and a combo boxes
+         JPanel southPanel = new JPanel();
+         startSimulation = new JButton ("Start");
+         southPanel.add(startSimulation);
+         southPanel.add(new JLabel("Table Number"));
+                        
+        //create first combo box to allow for selection of table ID in order to get bill 
+        JComboBox<String> tables = new JComboBox<String>();
         // add items to the combo box
-            tables.addItem("Select Table No.");
-            tables.addItem("Table 1");
-            tables.addItem("Table 2");
-            tables.addItem("Table 3");
-            tables.addItem("Table 4");
-            tables.addItem("Table 5");
-            tables.addItem("Table 6");
+        tables.addItem("Select Table No.");
+        tables.addItem("Table 1");
+        tables.addItem("Table 2");
+        tables.addItem("Table 3");
+        tables.addItem("Table 4");
+        tables.addItem("Table 5");
+        tables.addItem("Table 6");
             
-        //add combo box to south panel
-            southPanel.add(tables, BorderLayout.BEFORE_FIRST_LINE);
-            centrePanel.add(customTabDisplay(), BorderLayout.EAST);
+        //add first combo box to south panel
+        southPanel.add(tables, BorderLayout.BEFORE_FIRST_LINE);
+        centrePanel.add(customTabDisplay(), BorderLayout.EAST);
+        //button to get bill for table selected    
+        getBill = new JButton("Get Bill");   
+        southPanel.add(getBill); 
+        contentPane.add(southPanel, BorderLayout.SOUTH);
+            
+        //add second combo box to select orders from either text file or randomly and label
+        southPanel.add(new JLabel("Dishes"));  
+        //create combo box    
+        JComboBox<String> dishes = new JComboBox<String>();
+        // add items to the combo box
+        dishes.addItem("Select");
+        dishes.addItem("Textfile");
+        dishes.addItem("Random");
+        southPanel.add(dishes, BorderLayout.EAST);
                  
         //pack and set visible
         pack();
@@ -105,14 +126,17 @@ public class MVCRestaurantView extends JFrame implements Observer {
 			//monospaced allows nice tabular layout
 			tableDisplay[i].setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
 			tableDisplay [i].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
+			tableDisplay[i].setLineWrap(true); 
 			customTablePanel.add(tableDisplay[i]);
+			
 		}
 		return customTablePanel;
+		
     }
    
     //MVC pattern - allows listeners to be added
     public void kitchenTableOrderListener(ActionListener a) {
-        getBill.addActionListener(a);
+    	startSimulation.addActionListener(a);
     }
     
 
