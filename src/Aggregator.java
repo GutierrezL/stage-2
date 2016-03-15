@@ -154,6 +154,7 @@ public class Aggregator  {
 		return orders;
 	}
 	
+	
 	/**
 	 * Returns a table's bill price considering discounts
 	 * @param table	Table number

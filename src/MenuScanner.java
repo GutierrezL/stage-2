@@ -38,12 +38,13 @@ public class MenuScanner {
 	    		try {
 	    			//Splits line into parts.
 	    			data  = inputLine.split(";");
-	    			for (int i=0; i<4; i++){
+	    			for (int i=0; i<5; i++){
 	    				data[i] = data[i].trim();
 	    			}
 	    			
-	    			//If price is not a number, the error will be caught.
+	    			//If price or preparation time is not a number, the error will be caught.
 	    			double price = Double.parseDouble(data[1]);
+	    			int time = Integer.parseInt(data[4]);
 	    			//Checks, if the category name is valid, i.e. if it is in the String array categories.
 	    			boolean valid_category = Arrays.asList(categories).contains(data[2]);
 	    			
@@ -60,7 +61,7 @@ public class MenuScanner {
 	    			} else if (data[3].toLowerCase().equals("true")||data[3].toLowerCase().equals("false")){
 	    				boolean is_veg = Boolean.parseBoolean(data[3]);
 	    				//Creates a MenuItem object.
-	    				MenuItem m = new MenuItem(data[0], price, data[2], is_veg);
+	    				MenuItem m = new MenuItem(data[0], price, data[2], is_veg, time);
 	    				//Adds the newly created MenuItem to the MenuItemMap menuEntries.
 	    				menuEntries.addItem(m);
 	    				
@@ -71,7 +72,7 @@ public class MenuScanner {
 	    			inputLine = buff.readLine();
 	    		
 	    		}catch (NumberFormatException nfe) {
-	    			System.out.println("Error adding '" + data[0] + "'. Price '" +data[1]+ "' is not a number.");
+	    			System.out.println("Error adding '" + data[0] + "'. Price '" +data[1]+ "' or Time '" +data[3]+ "' is not a number.");
 	    			inputLine = buff.readLine();
 	    		} catch (ArrayIndexOutOfBoundsException aoe) {
 	    			System.out.println("Not enough information on line " + line_count + " to add data.");

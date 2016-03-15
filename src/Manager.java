@@ -24,8 +24,8 @@ public class Manager {
 	public void run(){
 		//ManagerGUI GUI = new ManagerGUI("Restaurant application", collections);
 		//GUI.setSize(600, 500);
-		//KitchenOrders model = new KitchenOrders(collections.getOrderList());
 		OrderGenerator model = new OrderGenerator();
+		//OrderGenerator model = new OrderGenerator(collections.getOrderList(), collections.getMenuItemMap()); 
 		MVCRestaurantView view = new MVCRestaurantView(model);
 		MVCRestaurantController controller = new MVCRestaurantController(model, view);   
 		view.setVisible(true);
