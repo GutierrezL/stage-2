@@ -2,6 +2,7 @@
 public class toKitchen implements Runnable {
 	
 	private OrderGenerator kitchen;
+	private int kitchOpenTime;
 	public toKitchen(OrderGenerator k){
 		kitchen = k;
 	}
@@ -9,8 +10,9 @@ public class toKitchen implements Runnable {
 	
 	@Override
 	public void run() {
+		kitchOpenTime = kitchen.getKitchOpenTime();
 		long start = System.currentTimeMillis();
-		long end = start + 5*1000;
+		long end = start + kitchOpenTime*1000; // multiplied because the value is in msec
 		while (System.currentTimeMillis() < end){
 			try {
 				kitchen.populateWithGenerator();

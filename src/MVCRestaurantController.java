@@ -24,8 +24,10 @@ public class MVCRestaurantController{
     public void actionPerformed(ActionEvent ae) 
     { 
 
-    	String value = view.getPopulateMethod();
-    	model.setPopulateMethod(value);
+    	String popValue = view.getPopulateMethod();
+    	model.setPopulateMethod(popValue);
+    	String durValue = view.getKitchOpenTime();
+    	model.setKitchOpenTime(durValue);;
     	
 		model.start();
     	view.enableGetBillButton();
