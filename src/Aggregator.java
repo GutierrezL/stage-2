@@ -210,6 +210,13 @@ public class Aggregator {
 	}
 	
 	/**
+	 * @return the menuItemMap
+	 */
+	public MenuItemMap getMenuItemMap() {
+		return menuItemMap;
+	}
+
+	/**
 	 * Returns a table's bill price considering discounts
 	 * @param table	Table number
 	 * @return	a double containing the total price for a table specified

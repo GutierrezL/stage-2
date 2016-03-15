@@ -1,29 +1,29 @@
-Garlic bread;         3.00;     Starter;     true
-Mixed olives;         2.50;     Starter;     false
-Salmon cakes;         4.00;     Starter;     false
-Minestrone soup;      3.50;     Starter;     false                       
-Steak;                25.00;    Main;        false
-Mushroom risotto;     12.50;    Main;        true
-Grilled seabass;      14.00;    Main;        false
-Roast chicken;        14.50;    Main;        false
-Lasagne;              15.00;    Main;        false
-Roasted vegetables;   3.50;     Side;        true
-Salad;                2.00;     Side;        true
-Cajun fries;          2.50;     Side;        true
-French fries;         2.50;     Side;        true
-Custard tart;         1.50;     Dessert;     true
-Lemon sorbet;         3.50;     Dessert;     true
-Rhubarb crumble;      3.50;     Dessert;     true
+Garlic bread;         3.00;     Starter;     true;	4
+Mixed olives;         2.50;     Starter;     false;	2
+Salmon cakes;         4.00;     Starter;     false;	9
+Minestrone soup;      3.50;     Starter;     false;	 8                      
+Steak;                25.00;    Main;        false;	10
+Mushroom risotto;     12.50;    Main;        true;	8
+Grilled seabass;      14.00;    Main;        false;	11
+Roast chicken;        14.50;    Main;        false;	14
+Lasagne;              15.00;    Main;        false;	8
+Roasted vegetables;   3.50;     Side;        true;	6
+Salad;                2.00;     Side;        true;	4
+Cajun fries;          2.50;     Side;        true;	3
+French fries;         2.50;     Side;        true;	4
+Custard tart;         1.50;     Dessert;     true;	2
+Lemon sorbet;         3.50;     Dessert;     true;	3
+Rhubarb crumble;      3.50;     Dessert;     true;	6
 
-Baked cheesecake;     4.00;     Dessert;     true
-Coffee;               2.00;     Drink;       true
-Tea;                  1.50;     Drink;       true
-Sparkling water;      2.50;     Drink;       true
-Juice;                2.50;     Drink;       true
-Juice;                2.50;     Drink;       true
-Volkswagen;           5000;     Car;         false
-Vanilla cheesecake;   A;     Dessert;     true
-Juice;                2.50;     Drink;       true
-Wine;                2.50;     Drink;       yes
+Baked cheesecake;     4.00;     Dessert;     true;	4
+Coffee;               2.00;     Drink;       true;	1
+Tea;                  1.50;     Drink;       true;	2
+Sparkling water;      2.50;     Drink;       true;	1
+Juice;                2.50;     Drink;       true;	2
+Juice;                2.50;     Drink;       true;	2
+Volkswagen;           5000;     Car;         false;	2
+Vanilla cheesecake;   A;     Dessert;     true;	7
+Juice;                2.50;     Drink;       true;	2
+Wine;                2.50;     Drink;       yes;	1
 Pastry
 Vanilla cheesecake;   2; ;     

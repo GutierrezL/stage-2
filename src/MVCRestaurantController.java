@@ -8,10 +8,10 @@ import java.awt.event.ActionListener;
  */
 public class MVCRestaurantController {
 	
-	private KitchenOrders model;
+	private OrderGenerator model;
 	private MVCRestaurantView view;
 	
-	public MVCRestaurantController (KitchenOrders m, MVCRestaurantView v){
+	public MVCRestaurantController (OrderGenerator m, MVCRestaurantView v){
 		model  = m;
 		view = v;
 		view.kitchenTableOrderListener(new restaurantController());
