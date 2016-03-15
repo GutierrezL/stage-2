@@ -29,7 +29,7 @@ public class MVCRestaurantController {
     	
     	Thread kitchOrderThread = new Thread(model);
 		kitchOrderThread.start();
-	
+		
 		try {
     		Thread.sleep(10000);
     	} catch (Exception e) {

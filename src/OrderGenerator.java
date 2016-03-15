@@ -3,6 +3,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,10 +12,12 @@ import java.util.Observer;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.SwingUtilities;
 
-public class OrderGenerator extends Observable implements Subject, Runnable {
+
+public class OrderGenerator extends Observable implements Runnable {
 	
-	private List<Observer> registeredObservers = new LinkedList<Observer>();
+	//private List<Observer> registeredObservers = new LinkedList<Observer>();
 	//Set to true when the kitchen closes, i.e. no more orders accepted
 	private boolean finished = false;
 	private MVCRestaurantView view;
@@ -30,6 +33,8 @@ public class OrderGenerator extends Observable implements Subject, Runnable {
 	private String report;
 	Log log = Log.getInstance();
 	private String populateMethod;
+	
+	
 	
 
 	/**
@@ -169,15 +174,22 @@ public class OrderGenerator extends Observable implements Subject, Runnable {
 	public synchronized void receiveOrder(Order o) {
 		
 		ordersInKitchen.add(o);
+		report = this.getOrderReport();
 		log.addEntry("Order " + o.getOrderID()+ " ('" + o.getItemName() + "', x" + o.getQuantity()
 		+ ", table " + o.getTableID() + ") has been sent to the kitchen.\r\n" );
-		report = this.getOrderReport();
 		
 		setChanged();
 		notifyObservers();
 		clearChanged();
 		
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			System.out.println(e.getMessage()) ;
+		}
 	}
+	
+	
 	
 	/**
 	 * Creates a random order.
@@ -237,8 +249,8 @@ public class OrderGenerator extends Observable implements Subject, Runnable {
 		public void run() {
 			//Reads the menu input file.
 			this.populateMenuItems();
+			System.out.println("£££££££££££££££££ RUUNNNYYY" + SwingUtilities.isEventDispatchThread());
 
-			System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + populateMethod + "%%%%%%%%%%%%%%%%%%%%%%");
 			if (populateMethod.equals("from a textfile")){
 				//Reads the order input file.
 				this.populateWithFile();
@@ -258,24 +270,26 @@ public class OrderGenerator extends Observable implements Subject, Runnable {
 		/**
 		 * Registers a new Observer.
 		 */
-		@Override
+		//@Override
+		/**
 		public void registerObserver(Observer obs) {
 			registeredObservers.add( obs);	
-		}
+		}*/
 
 		/**
 		 * Removes an existing Observer.
 		 */
+		/**
 		@Override
 		public void removeObserver(Observer obs) {
 			registeredObservers.remove( obs);
-		}
+		}*/
 		
 		/**
 		 * Notifies the Observers of a change.
 		 */
-		public void notifyObservers(){ 
+		/**public void notifyObservers(){ 
 			for( Observer obs : registeredObservers) obs.update(null, obs); 
 		}
-		
+		*/
 }

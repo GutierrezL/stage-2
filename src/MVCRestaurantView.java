@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 
 /**
@@ -38,6 +38,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
 	
 	private OrderGenerator model;
 	private String report;
+	
 		  
     /**
      * Create the frame with its panels.
@@ -51,7 +52,8 @@ public class MVCRestaurantView extends JFrame implements Observer {
 		//set window size
 		setPreferredSize(new Dimension(1100, 620));
 		this.model = model;
-        model.registerObserver(this);
+        //model.registerObserver(this);
+        model.addObserver(this);
         report = "";
 
 
@@ -65,6 +67,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
       	kitchenOrders.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
       	kitchenOrders.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
       	kitchenOrders.setEditable(false);
+      	kitchenOrders.setText("LIST OF ORDERS");
         centrePanel.add(kitchenOrders);
                
          //create container and add centre panel to content pane     
@@ -79,8 +82,6 @@ public class MVCRestaurantView extends JFrame implements Observer {
             
         //set up south panel containing a buttons and a combo boxes
          JPanel southPanel = new JPanel();
-         
-  
          
          startSimulation = new JButton ("Start");
          southPanel.add(startSimulation);
@@ -164,16 +165,12 @@ public class MVCRestaurantView extends JFrame implements Observer {
      * Updates the GUI.
      */
     public synchronized void update(Observable o,  Object arg) {
-    	report = model.getReport();
-    	System.out.println(report);
-    	this.kitchenOrders.setText(report);
     	
-    	try {
-			wait(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	report = model.getReport();
+    	//kitchenOrders.setText(report);
+    	System.out.println("^%%%%%%%%%%%%%%%%%%%%%" + SwingUtilities.isEventDispatchThread());
+    	System.out.println(report);
+    	
     	/**
     	for (int i = 0; i < model.getListOfTables().getSize(); i++) {
     		String report = model.getListOfTables().get(i).getOrderList();
@@ -181,5 +178,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
     	}
     	*/
     }
-
-}
+    
+    
+   
+   }
