@@ -1,32 +1,11 @@
-THE DAILY LOG
-Order number O00000002 ('Minestrone soup', x1, table 2) logged.
-Order number O00000003 ('Steak', x2, table 1) logged.
-Order number O00000004 ('Mushroom risotto', x3, table 1) logged.
-Order number O00000005 ('Grilled seabass', x1, table 1) logged.
-Order number O00000006 ('Roast chicken', x1, table 2) logged.
-Order number O00000007 ('Lasagne', x2, table 3) logged.
-Order number O00000008 ('Roasted vegetables', x3, table 4) logged.
-Order number O00000009 ('Salad', x4, table 4) logged.
-Order number O00000010 ('Cajun fries', x2, table 4) logged.
-Order number O00000011 ('Cajun fries', x2, table 1) logged.
-Order number O00000012 ('French fries', x1, table 3) logged.
-Order number O00000013 ('Custard tart', x1, table 2) logged.
-Order number O00000014 ('Lemon sorbet', x1, table 2) logged.
-Order number O00000015 ('Rhubarb crumble', x2, table 2) logged.
-Order number O00000016 ('Rhubarb crumble', x2, table 3) logged.
-Order number O00000019 ('Coffee', x3, table 6) logged.
-Order number O00000020 ('Salmon cakes', x1, table 3) logged.
-Order number O00000021 ('Mushroom risotto', x3, table 2) logged.
-Order number O00000022 ('Sparkling water', x5, table 5) logged.
-Order number O00000023 ('Juice', x4, table 3) logged.
-Order number O00000024 ('Juice', x2, table 1) logged.
-Order number O00000025 ('Tea', x3, table 2) logged.
-Order number O00000026 ('Custard tart', x1, table 5) logged.
-Order number O00000027 ('Garlic bread', x3, table 6) logged.
-Order number O00000028 ('Mixed olives', x2, table 7) logged.
-Order number O00000029 ('Lasagne', x3, table 4) logged.
-Order number O00000030 ('Juice', x5, table 5) logged.
-Order number O00000031 ('Roasted vegetables', x2, table 7) logged.
-Order number O00000032 ('Cajun fries', x3, table 8) logged.
-Order number O00000034 ('Steak', x3, table 7) logged.
-Order number O00000035 ('Sparkling water', x4, table 6) logged.
+THE DAILY LOG 
+Order O00000001 ('Minestrone soup', x1, table 2) has been sent to the kitchen.
+Order O00000002 ('Steak', x2, table 1) has been sent to the kitchen.
+Order O00000003 ('Mushroom risotto', x3, table 1) has been sent to the kitchen.
+Order O00000004 ('Grilled seabass', x1, table 1) has been sent to the kitchen.
+Order O00000005 ('Roast chicken', x1, table 2) has been sent to the kitchen.
+Order O00000006 ('Lasagne', x2, table 3) has been sent to the kitchen.
+Order O00000007 ('Roasted vegetables', x3, table 4) has been sent to the kitchen.
+Order O00000008 ('Salad', x4, table 4) has been sent to the kitchen.
+Order O00000009 ('Cajun fries', x2, table 4) has been sent to the kitchen.
+Order O00000010 ('Cajun fries', x2, table 1) has been sent to the kitchen.

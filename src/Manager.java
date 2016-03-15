@@ -10,30 +10,25 @@ import javax.swing.JFrame;
 * @since 2016-02-17
 */
 public class Manager {
-
-	private Aggregator collections;
 	
 	/**
 	 * Class constructor
 	 */
 	public Manager() {
-		collections = new Aggregator();
 	}
 
 	/**
 	 * Calls the population method for the different collections of orders and items.
 	 * In addition, creates the user interface
-	 * @throws InvalidPositiveInteger 
 	 */
 	public void run(){
-		collections.populate();
 		//ManagerGUI GUI = new ManagerGUI("Restaurant application", collections);
 		//GUI.setSize(600, 500);
-		OrderGenerator model = new OrderGenerator(collections.getOrderList(), collections.getMenuItemMap()); 
+		OrderGenerator model = new OrderGenerator();
+		//OrderGenerator model = new OrderGenerator(collections.getOrderList(), collections.getMenuItemMap()); 
 		MVCRestaurantView view = new MVCRestaurantView(model);
 		MVCRestaurantController controller = new MVCRestaurantController(model, view);   
 		view.setVisible(true);
 
-	}
-	
+	}	
 }
