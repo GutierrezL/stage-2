@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 
 /**
@@ -34,39 +34,50 @@ public class MVCRestaurantView extends JFrame implements Observer {
 	private JTextArea hatchOrders;
 	private JTextArea [] tableDisplay;
 	private JScrollPane scrollDown;
+	private JButton getBill,startSimulation; 
+	private JComboBox <String> dishes;
+	
 	private OrderGenerator model;
-	private JButton getBill,startSimulation;
+	private String report;
+	
 		  
     /**
      * Create the frame with its panels.
      */
-    public MVCRestaurantView(OrderGenerator k_model)
-    {              
+
+    public MVCRestaurantView(OrderGenerator model){            
         //set up window title
         setTitle("Kitchen Orders Simulation");
         //To ensure that when window is closed program ends
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//set window size
+		//setPreferredSize(new Dimension(1100, 620));
+		this.model = model;
+        model.addObserver(this);
+        report = "";
         setSize(100,500);
         setLocation(10,20);
-        model = k_model;
-        model.addObserver(this);
-        //ordersInKitchen = model.getOrdersInKitchen();
 
-      //add centre panel containing text fields and scroll pane 
-      		JPanel centrePanel = new JPanel();
-      		//centrePanel.add(new JLabel("Kitchen Orders")); 
-      		kitchenOrders = new JTextArea(20, 50);
-      		kitchenOrders.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-      		kitchenOrders.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
-      		hatchOrders = new JTextArea(20, 50);
-      		hatchOrders.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-      		hatchOrders.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
-      		centrePanel.add(kitchenOrders);
-      		centrePanel.add(hatchOrders);
-            
-       //create container and add centre panel to content pane     
-            Container contentPane = getContentPane();
-            contentPane.add(centrePanel, BorderLayout.WEST);
+        /**
+         * Add centre panel containing text field and scroll pane 
+         * that displays kitchen orders
+         */
+        JPanel centrePanel = new JPanel();
+      	//centrePanel.add(new JLabel("Kitchen Orders")); 
+      	kitchenOrders = new JTextArea(20, 50);
+      	kitchenOrders.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+      	kitchenOrders.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
+  		hatchOrders = new JTextArea(20, 50);
+  		hatchOrders.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+  		hatchOrders.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
+      	kitchenOrders.setEditable(false);
+      	kitchenOrders.setText("LIST OF ORDERS");
+        centrePanel.add(kitchenOrders);
+        centrePanel.add(hatchOrders);
+               
+         //create container and add centre panel to content pane     
+         Container contentPane = getContentPane();
+         contentPane.add(centrePanel, BorderLayout.WEST);
        
        //add scroll pane to content pane     
             scrollDown = new JScrollPane();
@@ -74,38 +85,40 @@ public class MVCRestaurantView extends JFrame implements Observer {
             
         //set up south panel containing a buttons and a combo boxes
          JPanel southPanel = new JPanel();
+         
          startSimulation = new JButton ("Start");
          southPanel.add(startSimulation);
-         southPanel.add(new JLabel("Table Number"));
+         
+       //Add combo box to select orders from either text file or randomly and label
+         southPanel.add(new JLabel("Dishes generated:"));  
+         //create combo box    
+         dishes = new JComboBox<String>();
+         // add items to the combo box;
+         dishes.addItem("from a textfile");
+         dishes.addItem("at random");
+         southPanel.add(dishes, BorderLayout.EAST);
+         
+         
+         southPanel.add(new JLabel("Table:"));
                         
         //create first combo box to allow for selection of table ID in order to get bill 
         JComboBox<String> tables = new JComboBox<String>();
         // add items to the combo box
-        tables.addItem("Select Table No.");
-        tables.addItem("Table 1");
-        tables.addItem("Table 2");
-        tables.addItem("Table 3");
-        tables.addItem("Table 4");
-        tables.addItem("Table 5");
-        tables.addItem("Table 6");
-            
+        tables.addItem("All");
+        for (int i = 1; i < 7; i++){
+        	tables.addItem("#" + i);
+        }
+
+        
         //add first combo box to south panel
         southPanel.add(tables, BorderLayout.BEFORE_FIRST_LINE);
         centrePanel.add(customTabDisplay(), BorderLayout.EAST);
         //button to get bill for table selected    
         getBill = new JButton("Get Bill");   
         southPanel.add(getBill); 
+        getBill.setEnabled(false);
         contentPane.add(southPanel, BorderLayout.SOUTH);
 
-        //add second combo box to select orders from either text file or randomly and label
-        southPanel.add(new JLabel("Dishes"));  
-        //create combo box    
-        JComboBox<String> dishes = new JComboBox<String>();
-        // add items to the combo box
-        dishes.addItem("Select");
-        dishes.addItem("Textfile");
-        dishes.addItem("Random");
-        southPanel.add(dishes, BorderLayout.EAST);
                  
         //pack and set visible
         pack();
@@ -131,24 +144,53 @@ public class MVCRestaurantView extends JFrame implements Observer {
     }
    
     //MVC pattern - allows listeners to be added
-    public void kitchenTableOrderListener(ActionListener a) {
+    public void kitchenOrderListener(ActionListener a) {
     	startSimulation.addActionListener(a);
     }
     
 
+    public String getPopulateMethod(){
+    	//String varName = (String) dishes.getSelectedItem();
+    	String value = dishes.getSelectedItem().toString();
+    	return value;
+    }
+    
+    public void updateKitchenPanel(){
+    	kitchenOrders.setText(report);
+    }
+    
+    
+    /**
+     * Enables the Get Bill button in the GUI.
+     */
+    public void enableGetBillButton(){
+    	getBill.setEnabled(true);
+    }
+    
     //Required methods for the Observer pattern
     
     /**
      * Updates the GUI.
      */
-    public synchronized void update(Observable o, Object args) {
-    	this.kitchenOrders.setText(model.getOrderReport());
+    public synchronized void update(Observable o,  Object args) {
+    	
+    	//report = model.getReport();
+    	this.kitchenOrders.setText(model.getReport());
     	this.hatchOrders.setText(model.getHatchReport());
     	for (int i = 0; i < model.getListOfTables().size(); i++) {
-    		String report = model.getOrderList(i);
-			this.tableDisplay[i].setText(report);	
+    	String report = model.getOrderList(i);
+    	System.out.println(model.getReport());
+    	
+    	/**
+    	for (int i = 0; i < model.getListOfTables().getSize(); i++) {
+    		String report = model.getListOfTables().get(i).getOrderList();
+    			this.tableDisplay[i].setText(report);	
     	}
+    	*/
+   
     }
-
-
+    	
+    }
 }
+    
+   
