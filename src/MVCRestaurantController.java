@@ -8,7 +8,7 @@ import java.io.UnsupportedEncodingException;
  * Class that handles interaction with users and 
  * calls view and model as needed
  */
-public class MVCRestaurantController {
+public class MVCRestaurantController{
 	
 	private OrderGenerator model;
 	private MVCRestaurantView view;

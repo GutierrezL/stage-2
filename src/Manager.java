@@ -30,6 +30,5 @@ public class Manager {
 		MVCRestaurantController controller = new MVCRestaurantController(model, view);   
 		view.setVisible(true);
 
-	}
-	
+	}	
 }

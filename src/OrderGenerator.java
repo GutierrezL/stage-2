@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -17,7 +16,6 @@ import javax.swing.SwingUtilities;
 
 public class OrderGenerator extends Observable implements Runnable {
 	
-	//private List<Observer> registeredObservers = new LinkedList<Observer>();
 	//Set to true when the kitchen closes, i.e. no more orders accepted
 	private boolean finished = false;
 	private MVCRestaurantView view;
@@ -249,7 +247,7 @@ public class OrderGenerator extends Observable implements Runnable {
 		public void run() {
 			//Reads the menu input file.
 			this.populateMenuItems();
-			System.out.println("£££££££££££££££££ RUUNNNYYY" + SwingUtilities.isEventDispatchThread());
+			System.out.println("£££££££££££££££££ OrderGenerator RUN()" + SwingUtilities.isEventDispatchThread());
 
 			if (populateMethod.equals("from a textfile")){
 				//Reads the order input file.
@@ -263,33 +261,4 @@ public class OrderGenerator extends Observable implements Runnable {
 				}
 			}
 		}
-		
-		
-		///////////////////////////////////////////////////////////////////////////////////////////
-		//Required methods for the Observer pattern
-		/**
-		 * Registers a new Observer.
-		 */
-		//@Override
-		/**
-		public void registerObserver(Observer obs) {
-			registeredObservers.add( obs);	
-		}*/
-
-		/**
-		 * Removes an existing Observer.
-		 */
-		/**
-		@Override
-		public void removeObserver(Observer obs) {
-			registeredObservers.remove( obs);
-		}*/
-		
-		/**
-		 * Notifies the Observers of a change.
-		 */
-		/**public void notifyObservers(){ 
-			for( Observer obs : registeredObservers) obs.update(null, obs); 
-		}
-		*/
 }

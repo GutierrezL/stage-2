@@ -52,7 +52,6 @@ public class MVCRestaurantView extends JFrame implements Observer {
 		//set window size
 		setPreferredSize(new Dimension(1100, 620));
 		this.model = model;
-        //model.registerObserver(this);
         model.addObserver(this);
         report = "";
 
@@ -151,6 +150,10 @@ public class MVCRestaurantView extends JFrame implements Observer {
     	return value;
     }
     
+    public void updateKitchenPanel(){
+    	kitchenOrders.setText(report);
+    }
+    
     
     /**
      * Enables the Get Bill button in the GUI.
@@ -167,7 +170,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
     public synchronized void update(Observable o,  Object arg) {
     	
     	report = model.getReport();
-    	//kitchenOrders.setText(report);
+    	kitchenOrders.setText(report);
     	System.out.println("^%%%%%%%%%%%%%%%%%%%%%" + SwingUtilities.isEventDispatchThread());
     	System.out.println(report);
     	
