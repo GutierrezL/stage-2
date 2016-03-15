@@ -1,11 +1,1 @@
 THE DAILY LOG 
-Order O00000001 ('Minestrone soup', x1, table 2) has been sent to the kitchen.
-Order O00000002 ('Steak', x2, table 1) has been sent to the kitchen.
-Order O00000003 ('Mushroom risotto', x3, table 1) has been sent to the kitchen.
-Order O00000004 ('Grilled seabass', x1, table 1) has been sent to the kitchen.
-Order O00000005 ('Roast chicken', x1, table 2) has been sent to the kitchen.
-Order O00000006 ('Lasagne', x2, table 3) has been sent to the kitchen.
-Order O00000007 ('Roasted vegetables', x3, table 4) has been sent to the kitchen.
-Order O00000008 ('Salad', x4, table 4) has been sent to the kitchen.
-Order O00000009 ('Cajun fries', x2, table 4) has been sent to the kitchen.
-Order O00000010 ('Cajun fries', x2, table 1) has been sent to the kitchen.

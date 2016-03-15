@@ -178,18 +178,9 @@ public class MVCRestaurantView extends JFrame implements Observer {
     	this.kitchenOrders.setText(model.getReport());
     	this.hatchOrders.setText(model.getHatchReport());
     	for (int i = 0; i < model.getListOfTables().size(); i++) {
-    	String report = model.getOrderList(i);
-    	System.out.println(model.getReport());
-    	
-    	/**
-    	for (int i = 0; i < model.getListOfTables().getSize(); i++) {
-    		String report = model.getListOfTables().get(i).getOrderList();
-    			this.tableDisplay[i].setText(report);	
+    		String report = model.getOrderList(i);
+    		this.tableDisplay[i].setText(report);
     	}
-    	*/
-   
-    }
-    	
     }
 }
     
