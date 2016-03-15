@@ -32,12 +32,12 @@ a:	Tuna;				3
 2;	Tea;				3;
 5;	Custard tart;		1;
 6;	Garlic bread;		3;
-7;	Mixed olives;		2;
+4;	Mixed olives;		2;
 4;	Lasagne;			3;
 5;	Juice;				5;
 6;	Coke;				1;
-7;	Roasted vegetables;	2;
-8;	Cajun fries;		3;
+2;	Roasted vegetables;	2;
+5;	Cajun fries;		3;
 4;	Cajun fries;		1;
-7;	Steak;				3;
+3;	Steak;				3;
 6;	Sparkling water;	4;

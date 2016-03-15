@@ -15,6 +15,7 @@ public class MenuItem {
 	private double itemPrice;
 	private String category;
 	private boolean isVegetarian;
+	private int preparationTime;
 	DecimalFormat df = new DecimalFormat("#.00"); //For formatting the price value
 	
 	/**
@@ -24,11 +25,12 @@ public class MenuItem {
 	 * @param category        Category of the menu item
 	 * @param is_vegetarian   Whether the menu item is vegetarian (true) or not (false)
 	 */
-	public MenuItem(String name, double price, String category, boolean is_vegetarian){
+	public MenuItem(String name, double price, String category, boolean is_vegetarian, int time){
 		itemName = name;
 		itemPrice = price;
 		this.category = category;
 		isVegetarian = is_vegetarian;
+		preparationTime = time;
 	}
 	
 	/**
@@ -55,6 +57,20 @@ public class MenuItem {
 		return category;
 	}
 	
+	/**
+	 * @return the preparationTime
+	 */
+	public int getPreparationTime() {
+		return preparationTime;
+	}
+
+	/**
+	 * @param preparationTime the preparationTime to set
+	 */
+	public void setPreparationTime(int preparationTime) {
+		this.preparationTime = preparationTime;
+	}
+
 	/**
 	 * Sets a new name for the item on the menu.
 	 * @param new_name   the new name of the item on the menu

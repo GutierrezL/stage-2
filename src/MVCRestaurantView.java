@@ -29,15 +29,16 @@ public class MVCRestaurantView extends JFrame implements Observer {
 	 * Instance variables for GUI
 	 */
 	private JTextArea kitchenOrders;
+	private JTextArea hatchOrders;
 	private JTextArea [] tableDisplay;
 	private JScrollPane scrollDown;
 	private JButton getBill;
-	private KitchenOrders model;
+	private OrderGenerator model;
 		  
     /**
      * Create the frame with its panels.
      */
-    public MVCRestaurantView(KitchenOrders k_model)
+    public MVCRestaurantView(OrderGenerator k_model)
     {              
         //set up window title
         setTitle("Kitchen Orders");
@@ -46,16 +47,20 @@ public class MVCRestaurantView extends JFrame implements Observer {
         setSize(100,500);
         setLocation(10,20);
         model = k_model;
-        model.registerObserver(this);
+        model.addObserver(this);
         //ordersInKitchen = model.getOrdersInKitchen();
 
       //add centre panel containing text fields and scroll pane 
       		JPanel centrePanel = new JPanel();
       		//centrePanel.add(new JLabel("Kitchen Orders")); 
-      		kitchenOrders = new JTextArea(30, 30);
+      		kitchenOrders = new JTextArea(20, 50);
       		kitchenOrders.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
       		kitchenOrders.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
-            centrePanel.add(kitchenOrders);
+      		hatchOrders = new JTextArea(20, 50);
+      		hatchOrders.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+      		hatchOrders.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
+      		centrePanel.add(kitchenOrders);
+      		centrePanel.add(hatchOrders);
             
        //create container and add centre panel to content pane     
             Container contentPane = getContentPane();
@@ -93,10 +98,10 @@ public class MVCRestaurantView extends JFrame implements Observer {
     
        private JPanel customTabDisplay() {
     	//cheating - know there are 6 customers
-    	JPanel customTablePanel = new JPanel(new GridLayout (2,3));
+    	JPanel customTablePanel = new JPanel(new GridLayout (3,2));
 		tableDisplay  = new JTextArea [6];
 		for (int i = 0; i < 6; i++){ 
-			tableDisplay [i]= new JTextArea(15,30);
+			tableDisplay [i]= new JTextArea(10,30);
 			//monospaced allows nice tabular layout
 			tableDisplay[i].setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
 			tableDisplay [i].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
@@ -118,8 +123,9 @@ public class MVCRestaurantView extends JFrame implements Observer {
      */
     public synchronized void update(Observable o, Object args) {
     	this.kitchenOrders.setText(model.getOrderReport());
-    	for (int i = 0; i < model.getListOfTables().getSize(); i++) {
-    		String report = model.getListOfTables().get(i).getOrderList();
+    	this.hatchOrders.setText(model.getHatchReport());
+    	for (int i = 0; i < model.getListOfTables().size(); i++) {
+    		String report = model.getOrderList(i);
 			this.tableDisplay[i].setText(report);	
     	}
     }
