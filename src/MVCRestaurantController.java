@@ -28,8 +28,8 @@ public class MVCRestaurantController{
     	model.setPopulateMethod(value);
     	
 		model.start();
-    
     	view.enableGetBillButton();
+    	
     	try {
 			Log.getInstance().outputLog();
 		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
