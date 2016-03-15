@@ -9,7 +9,9 @@ public class toKitchen implements Runnable {
 	
 	@Override
 	public void run() {
-		for(int i=0;i<15;i++){
+		long start = System.currentTimeMillis();
+		long end = start + 5*1000;
+		while (System.currentTimeMillis() < end){
 			try {
 				kitchen.populateWithGenerator();
 			} catch (InvalidPositiveInteger e1) {
@@ -24,5 +26,7 @@ public class toKitchen implements Runnable {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("The kitchen is closing.");
+    	kitchen.setFinished();
 	}
 }

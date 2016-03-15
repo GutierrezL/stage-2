@@ -1,21 +1,11 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Observer;
-
-
-import javax.swing.SwingUtilities;
 
 
 public class OrderGenerator extends Observable{
@@ -229,18 +219,17 @@ public class OrderGenerator extends Observable{
 		Thread kitchOrderThread = new Thread();
 		kitchOrderThread.start();
 		
-		toKitchen zeroStep = new toKitchen(this);
-		Thread sendToKitchen = new Thread(zeroStep);
+		toKitchen firstStep = new toKitchen(this);
+		Thread sendToKitchen = new Thread(firstStep);
 		sendToKitchen.start();	
 		
-		toHatch firstStep = new toHatch(this);
-		Thread sendToHatch = new Thread(firstStep);
+		toHatch secondStep = new toHatch(this);
+		Thread sendToHatch = new Thread(secondStep);
 		sendToHatch.start();
 		
-		toTables secondStep = new toTables(this);
-		Thread sendToTables = new Thread(secondStep);
-		sendToTables.start();	
-		
+		toTables thirdStep = new toTables(this);
+		Thread sendToTables = new Thread(thirdStep);
+		sendToTables.start();
 	}
 	
 	/**
@@ -321,6 +310,15 @@ public class OrderGenerator extends Observable{
 		setChanged();
 		notifyObservers();
     	clearChanged();
+	}
+	
+	public boolean noOrdersInKitchen(){
+		if (ordersInKitchen.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 	
 	public synchronized void orderToTable() {

@@ -11,10 +11,7 @@ public class toHatch implements Runnable{
 	public void run() {
 		int waitingTime = 100;
 		boolean orderAvailable = false;
-		//try { Thread.sleep(1000); }
-	   // catch (InterruptedException e) {}
-		//loop while kitchen not empty
-		while (!kitchen.isFinished()) {
+		while ((!kitchen.isFinished()) || (!kitchen.noOrdersInKitchen()) ) {
 			if(kitchen.isSimulationActive()){
 				waitingTime = kitchen.getMenuItemMap().findByName(kitchen.getFirstOrder().getItemName()).getPreparationTime() * 200;
 				if(!orderAvailable)	orderAvailable = true;
