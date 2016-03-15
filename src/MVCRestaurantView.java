@@ -71,11 +71,6 @@ public class MVCRestaurantView extends JFrame implements Observer {
        //add scroll pane to content pane     
             scrollDown = new JScrollPane();
             centrePanel.add(scrollDown,BorderLayout.CENTER);            
-         //add scroll pane to content pane     
-         scrollDown = new JScrollPane(kitchenOrders);
-         scrollDown.setPreferredSize( new Dimension( 350, 500 ) );
-         centrePanel.add(scrollDown,BorderLayout.CENTER);
-          
             
         //set up south panel containing a buttons and a combo boxes
          JPanel southPanel = new JPanel();
@@ -101,7 +96,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
         getBill = new JButton("Get Bill");   
         southPanel.add(getBill); 
         contentPane.add(southPanel, BorderLayout.SOUTH);
-            
+
         //add second combo box to select orders from either text file or randomly and label
         southPanel.add(new JLabel("Dishes"));  
         //create combo box    
@@ -124,6 +119,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
 		for (int i = 0; i < 6; i++){ 
 			tableDisplay [i]= new JTextArea(10,30);
 			//monospaced allows nice tabular layout
+
 			tableDisplay[i].setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
 			tableDisplay [i].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 			tableDisplay[i].setLineWrap(true); 
