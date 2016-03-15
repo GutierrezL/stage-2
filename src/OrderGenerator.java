@@ -170,7 +170,6 @@ public class OrderGenerator extends Observable implements Runnable {
 	 * @param o the order to be processed
 	 */
 	public synchronized void receiveOrder(Order o) {
-		
 		ordersInKitchen.add(o);
 		report = this.getOrderReport();
 		log.addEntry("Order " + o.getOrderID()+ " ('" + o.getItemName() + "', x" + o.getQuantity()
@@ -180,11 +179,10 @@ public class OrderGenerator extends Observable implements Runnable {
 		notifyObservers();
 		clearChanged();
 		
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			System.out.println(e.getMessage()) ;
-		}
+		int waitingTime = 1000;
+    	try { Thread.sleep(waitingTime); }
+		catch (InterruptedException e) {}
+		//if(orderAvailable)	kitchen.orderToHatch();
 	}
 	
 	
@@ -246,9 +244,16 @@ public class OrderGenerator extends Observable implements Runnable {
 		@Override
 		public void run() {
 			//Reads the menu input file.
+			Thread kitchOrderThread = new Thread();
+			kitchOrderThread.start();
+			
+			toKitchen zeroStep = new toKitchen(this);
+			Thread sendToKitchen = new Thread(zeroStep);
+			sendToKitchen.start();
+			
+			
+			/**
 			this.populateMenuItems();
-			System.out.println("£££££££££££££££££ OrderGenerator RUN()" + SwingUtilities.isEventDispatchThread());
-
 			if (populateMethod.equals("from a textfile")){
 				//Reads the order input file.
 				this.populateWithFile();
@@ -260,5 +265,10 @@ public class OrderGenerator extends Observable implements Runnable {
 					e.printStackTrace();
 				}
 			}
+			*/
+		}
+		
+		public String getPopulateMethod(){
+			return populateMethod;
 		}
 }

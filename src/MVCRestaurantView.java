@@ -167,12 +167,12 @@ public class MVCRestaurantView extends JFrame implements Observer {
     /**
      * Updates the GUI.
      */
-    public synchronized void update(Observable o,  Object arg) {
+    public synchronized void update(Observable o,  Object args) {
     	
-    	report = model.getReport();
-    	kitchenOrders.setText(report);
-    	System.out.println("^%%%%%%%%%%%%%%%%%%%%%" + SwingUtilities.isEventDispatchThread());
-    	System.out.println(report);
+    	//report = model.getReport();
+    	this.kitchenOrders.setText(model.getReport());
+    	//System.out.println("%%%%%%%%%%%%%%%%%%%%%" + SwingUtilities.isEventDispatchThread());
+    	System.out.println(model.getReport());
     	
     	/**
     	for (int i = 0; i < model.getListOfTables().getSize(); i++) {
@@ -180,6 +180,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
 			this.tableDisplay[i].setText(report);	
     	}
     	*/
+   
     }
     
     
