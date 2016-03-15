@@ -41,6 +41,10 @@ public class OrderGenerator extends Observable{
 	private boolean startSimulation;
 	private boolean hatchFinished;
 	
+	private static final String orderTitles = String.format("%-9s", "ID")+
+			String.format("%-7s", "TABLE")+ String.format("%-22s", "ITEM NAME") + 
+			String.format("%-5s", "QUANT") +"\r\n";
+	
 
 	/**
 	 * This collection maps pairs of integers corresponding to table numbers as keys
@@ -202,7 +206,7 @@ public class OrderGenerator extends Observable{
 		public String getOrderList(int i) {
 			String report = "TABLE " + (i+1) + "\n";
 			if (tables.get(i).size() == 0) {
-				report += "There is no orders to show";
+				report += "There are no orders to show";
 			}else {
 				int num = 1;
 				for (Order o : tables.get(i)) {
@@ -244,20 +248,21 @@ public class OrderGenerator extends Observable{
 	 * in the kitchen.
 	 * @return a String containing the current version of the report.
 	 */
-	public String getOrderReport(){		
-		String report = "LIST OF ORDERS IN THE KITCHEN \r\n" + String.format("%-9s", "ID")+
-				String.format("%-5s", "TABLE")+ String.format("%-22s", "QUANTITY")
-				+ "QUANT \r\n";
+	public String getKitchenReport(){		
+		String report = "LIST OF ORDERS IN THE KITCHEN \r\n" + orderTitles;
 		for (Order ord: ordersInKitchen) {
 			report += ord.printShortInfo() + "\r\n";
 		}
 		return report;	
 	}
 	
+	/**
+	 * Returns the current version of the report, i.e. a list of orders 
+	 * in the hatch.
+	 * @return a String containing the current version of the report.
+	 */
 	public String getHatchReport(){		
-		String report = "LIST OF ORDERS IN THE HATCH \r\n" + String.format("%-9s", "ID")+
-				String.format("%-5s", "TABLE")+ String.format("%-22s", "QUANTITY")
-				+ "QUANT \r\n";
+		String report = "LIST OF ORDERS IN THE HATCH \r\n" + orderTitles;
 		for (Order ord: hatch) {
 			report += ord.printShortInfo() + "\r\n";
 		}
@@ -271,7 +276,7 @@ public class OrderGenerator extends Observable{
 	 */
 	public synchronized void receiveOrder(Order o) {
 		ordersInKitchen.add(o);
-		report = this.getOrderReport();
+		report = this.getKitchenReport();
 		log.addEntry("Order " + o.getOrderID()+ " ('" + o.getItemName() + "', x" + o.getQuantity()
 		+ ", table " + o.getTableID() + ") has been sent to the kitchen.\r\n" );
 		
@@ -298,25 +303,7 @@ public class OrderGenerator extends Observable{
 		return o;
 	}
 
-	
-	
-		
-		
-		/**
-		 * Returns the report containing a list of orders in the kitchen.
-		 * @return String report of orders in the kitchen.
-		 */
-		public String getReport(){
-				String report = "LIST OF ORDERS IN THE KITCHEN \r\n" + String.format("%-9s", "ID")+
-						String.format("%-5s", "TABLE")+ String.format("%-22s", "QUANTITY")
-						+ "QUANT \r\n";
-				for (Order ord: ordersInKitchen) {
-					report += ord.printShortInfo() + "\r\n";
-				}
-				return report;	
-			
-		}
-		
+
 		
 		public String getPopulateMethod(){
 			return populateMethod;
