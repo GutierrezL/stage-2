@@ -71,8 +71,10 @@ public class MVCRestaurantView extends JFrame implements Observer {
   		hatchOrders.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
   		hatchOrders.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
       	kitchenOrders.setEditable(false);
-      	kitchenOrders.setText("LIST OF ORDERS");
-        centrePanel.add(kitchenOrders);
+      	kitchenOrders.setText("LIST OF ORDERS IN THE KITCHEN");
+      	hatchOrders.setEditable(false);
+      	hatchOrders.setText("LIST OF ORDERS IN THE HATCH");
+      	centrePanel.add(kitchenOrders);
         centrePanel.add(hatchOrders);
                
          //create container and add centre panel to content pane     
@@ -175,7 +177,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
     public synchronized void update(Observable o,  Object args) {
     	
     	//report = model.getReport();
-    	this.kitchenOrders.setText(model.getReport());
+    	this.kitchenOrders.setText(model.getKitchenReport());
     	this.hatchOrders.setText(model.getHatchReport());
     	for (int i = 0; i < model.getListOfTables().size(); i++) {
     		String report = model.getOrderList(i);

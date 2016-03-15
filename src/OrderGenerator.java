@@ -1,21 +1,11 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Observer;
-
-
-import javax.swing.SwingUtilities;
 
 
 public class OrderGenerator extends Observable{
@@ -40,6 +30,10 @@ public class OrderGenerator extends Observable{
 	//Set to true when the kitchen closes, i.e. no more orders accepted
 	private boolean startSimulation;
 	private boolean hatchFinished;
+	
+	private static final String orderTitles = String.format("%-9s", "ID")+
+			String.format("%-7s", "TABLE")+ String.format("%-22s", "ITEM NAME") + 
+			String.format("%-5s", "QUANT") +"\r\n";
 	
 
 	/**
@@ -202,7 +196,7 @@ public class OrderGenerator extends Observable{
 		public String getOrderList(int i) {
 			String report = "TABLE " + (i+1) + "\n";
 			if (tables.get(i).size() == 0) {
-				report += "There is no orders to show";
+				report += "There are no orders to show";
 			}else {
 				int num = 1;
 				for (Order o : tables.get(i)) {
@@ -225,18 +219,17 @@ public class OrderGenerator extends Observable{
 		Thread kitchOrderThread = new Thread();
 		kitchOrderThread.start();
 		
-		toKitchen zeroStep = new toKitchen(this);
-		Thread sendToKitchen = new Thread(zeroStep);
+		toKitchen firstStep = new toKitchen(this);
+		Thread sendToKitchen = new Thread(firstStep);
 		sendToKitchen.start();	
 		
-		toHatch firstStep = new toHatch(this);
-		Thread sendToHatch = new Thread(firstStep);
+		toHatch secondStep = new toHatch(this);
+		Thread sendToHatch = new Thread(secondStep);
 		sendToHatch.start();
 		
-		toTables secondStep = new toTables(this);
-		Thread sendToTables = new Thread(secondStep);
-		sendToTables.start();	
-		
+		toTables thirdStep = new toTables(this);
+		Thread sendToTables = new Thread(thirdStep);
+		sendToTables.start();
 	}
 	
 	/**
@@ -244,20 +237,21 @@ public class OrderGenerator extends Observable{
 	 * in the kitchen.
 	 * @return a String containing the current version of the report.
 	 */
-	public String getOrderReport(){		
-		String report = "LIST OF ORDERS IN THE KITCHEN \r\n" + String.format("%-9s", "ID")+
-				String.format("%-5s", "TABLE")+ String.format("%-22s", "QUANTITY")
-				+ "QUANT \r\n";
+	public String getKitchenReport(){		
+		String report = "LIST OF ORDERS IN THE KITCHEN \r\n" + orderTitles;
 		for (Order ord: ordersInKitchen) {
 			report += ord.printShortInfo() + "\r\n";
 		}
 		return report;	
 	}
 	
+	/**
+	 * Returns the current version of the report, i.e. a list of orders 
+	 * in the hatch.
+	 * @return a String containing the current version of the report.
+	 */
 	public String getHatchReport(){		
-		String report = "LIST OF ORDERS IN THE HATCH \r\n" + String.format("%-9s", "ID")+
-				String.format("%-5s", "TABLE")+ String.format("%-22s", "QUANTITY")
-				+ "QUANT \r\n";
+		String report = "LIST OF ORDERS IN THE HATCH \r\n" + orderTitles;
 		for (Order ord: hatch) {
 			report += ord.printShortInfo() + "\r\n";
 		}
@@ -271,7 +265,7 @@ public class OrderGenerator extends Observable{
 	 */
 	public synchronized void receiveOrder(Order o) {
 		ordersInKitchen.add(o);
-		report = this.getOrderReport();
+		report = this.getKitchenReport();
 		log.addEntry("Order " + o.getOrderID()+ " ('" + o.getItemName() + "', x" + o.getQuantity()
 		+ ", table " + o.getTableID() + ") has been sent to the kitchen.\r\n" );
 		
@@ -298,25 +292,7 @@ public class OrderGenerator extends Observable{
 		return o;
 	}
 
-	
-	
-		
-		
-		/**
-		 * Returns the report containing a list of orders in the kitchen.
-		 * @return String report of orders in the kitchen.
-		 */
-		public String getReport(){
-				String report = "LIST OF ORDERS IN THE KITCHEN \r\n" + String.format("%-9s", "ID")+
-						String.format("%-5s", "TABLE")+ String.format("%-22s", "QUANTITY")
-						+ "QUANT \r\n";
-				for (Order ord: ordersInKitchen) {
-					report += ord.printShortInfo() + "\r\n";
-				}
-				return report;	
-			
-		}
-		
+
 		
 		public String getPopulateMethod(){
 			return populateMethod;
@@ -334,6 +310,15 @@ public class OrderGenerator extends Observable{
 		setChanged();
 		notifyObservers();
     	clearChanged();
+	}
+	
+	public boolean noOrdersInKitchen(){
+		if (ordersInKitchen.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 	
 	public synchronized void orderToTable() {
