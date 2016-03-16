@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 
 public class toTables implements Runnable{
 
@@ -16,6 +18,11 @@ public class toTables implements Runnable{
 			try { Thread.sleep(1000); }
 		    catch (InterruptedException e) {}
 			kitchen.orderToTable();
-		}
+		} 
+		try {
+			Log.getInstance().outputLog();
+		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		} 
 	}
 }
