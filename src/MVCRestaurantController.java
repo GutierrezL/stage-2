@@ -20,23 +20,15 @@ public class MVCRestaurantController{
 	}
 	
 	class restaurantController  implements ActionListener
-{
+{	
     public void actionPerformed(ActionEvent ae) 
     { 
-
     	String popValue = view.getPopulateMethod();
     	model.setPopulateMethod(popValue);
     	String durValue = view.getKitchOpenTime();
-    	model.setKitchOpenTime(durValue);;
+    	model.setKitchOpenTime(durValue);
     	
 		model.start();
-    	view.enableGetBillButton();
-    	
-    	try {
-			Log.getInstance().outputLog();
-		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		} 
     }
  }
 }

@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 
 public class toHatch implements Runnable{
 
@@ -11,8 +13,11 @@ public class toHatch implements Runnable{
 	public void run() {
 		int waitingTime = 100;
 		boolean orderAvailable = false;
-		while ((!kitchen.isFinished()) || (!kitchen.noOrdersInKitchen()) ) {
-			if(kitchen.isSimulationActive()){
+		//try { Thread.sleep(1000); }
+	   // catch (InterruptedException e) {}
+		//loop while kitchen not empty
+		while ((!kitchen.isFinished()) || (!kitchen.noOrdersInKitchen())) {
+			if(kitchen.isSimulationActive()&&(!kitchen.noOrdersInKitchen())){
 				waitingTime = kitchen.getMenuItemMap().findByName(kitchen.getFirstOrder().getItemName()).getPreparationTime() * 200;
 				if(!orderAvailable)	orderAvailable = true;
 			} try { Thread.sleep(waitingTime); }

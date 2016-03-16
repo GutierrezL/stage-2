@@ -130,7 +130,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
         //button to get bill for table selected    
         getBill = new JButton("Get Bill");   
         southPanel.add(getBill); 
-        getBill.setEnabled(false);
+        //getBill.setEnabled(false);
         contentPane.add(southPanel, BorderLayout.SOUTH);
 
                  
