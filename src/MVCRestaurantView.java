@@ -36,6 +36,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
 	private JScrollPane scrollDown;
 	private JButton getBill,startSimulation; 
 	private JComboBox <String> dishes;
+	private JComboBox <String> kitchOpen;
 	
 	private OrderGenerator model;
 	private String report;
@@ -91,7 +92,18 @@ public class MVCRestaurantView extends JFrame implements Observer {
          startSimulation = new JButton ("Start");
          southPanel.add(startSimulation);
          
-       //Add combo box to select orders from either text file or randomly and label
+         //Add combo box to select orders from either text file or randomly and label
+         southPanel.add(new JLabel("Kitchen open (sec):"));  
+         //create combo box    
+         kitchOpen = new JComboBox<String>();
+         // add items to the combo box;
+         kitchOpen.addItem("5");
+         kitchOpen.addItem("10");
+         kitchOpen.addItem("15");
+         southPanel.add(kitchOpen, BorderLayout.EAST);
+         
+         
+         //Add combo box to select orders from either text file or randomly and label
          southPanel.add(new JLabel("Dishes generated:"));  
          //create combo box    
          dishes = new JComboBox<String>();
@@ -118,7 +130,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
         //button to get bill for table selected    
         getBill = new JButton("Get Bill");   
         southPanel.add(getBill); 
-        getBill.setEnabled(false);
+        //getBill.setEnabled(false);
         contentPane.add(southPanel, BorderLayout.SOUTH);
 
                  
@@ -152,8 +164,12 @@ public class MVCRestaurantView extends JFrame implements Observer {
     
 
     public String getPopulateMethod(){
-    	//String varName = (String) dishes.getSelectedItem();
     	String value = dishes.getSelectedItem().toString();
+    	return value;
+    }
+    
+    public String getKitchOpenTime(){
+    	String value = kitchOpen.getSelectedItem().toString();
     	return value;
     }
     

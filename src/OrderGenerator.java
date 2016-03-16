@@ -1,10 +1,11 @@
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 
@@ -20,21 +21,25 @@ public class OrderGenerator extends Observable{
 	private LinkedList<Order> ordersInKitchen;
 	//list of tables
 	private String report;
-	Log log = Log.getInstance();
+	//Log instance using Singleton pattern
+	Log log;
+	//Order collection population method
 	private String populateMethod;
-	
 	private ArrayList<LinkedList<Order>> tables;
 	//List of orders
 	private LinkedList<Order> hatch;
+	private int numberOfTables;
 	
 	//Set to true when the kitchen closes, i.e. no more orders accepted
 	private boolean startSimulation;
 	private boolean hatchFinished;
+	//The duration of the simulation in seconds
+	private int kitchOpenTime;
 	
+	//Kitchen and hatch panel headers in the GUI
 	private static final String orderTitles = String.format("%-9s", "ID")+
 			String.format("%-7s", "TABLE")+ String.format("%-22s", "ITEM NAME") + 
 			String.format("%-5s", "QUANT") +"\r\n";
-	
 
 	/**
 	 * This collection maps pairs of integers corresponding to table numbers as keys
@@ -52,6 +57,8 @@ public class OrderGenerator extends Observable{
 		ordersInKitchen = new LinkedList<Order>();
 		report = "";
 		populateMethod = "";
+		log = Log.getInstance();
+		numberOfTables = 6;
 		
 		finished = false;
 		hatchFinished = false;
@@ -83,10 +90,10 @@ public class OrderGenerator extends Observable{
 		public void setStartSimulation() {
 			this.startSimulation = true;
 		}
+	
 	/**
 	 * Indicates the end of the working hours of the kitchen, i.e. no more orders accepted.	
 	 */
-
  	//indicates end of auction
 	public void setFinished() {
 			finished = true;
@@ -109,62 +116,62 @@ public class OrderGenerator extends Observable{
 	}
 	
 	/**
+	 * Sets the duration of simulation in seconds.
+	 * @param value String value describing how the orders should be generated.
+	 */
+	public void setKitchOpenTime(String value){
+		int time = Integer.parseInt(value.trim());
+		kitchOpenTime = time;
+	}
+	
+	/**
+	 * Returns the duration in seconds for which the kitchen is open in the simulation.
+	 * @return integer containing duration of kitchen opening time in seconds.
+	 */
+	public int getKitchOpenTime(){
+		return kitchOpenTime;
+	}
+	
+	/**
 	 * This method populates the collections of orders and items using input text files
 	 */
-	public void populateWithFile() {
-		try {
-			File f = new File("OrderInput.txt");
-			Scanner scanner = new Scanner(f);
-			int line = 0;
-			//Checks, if kitchen has not closed and if there is a next line.
-			while (!this.isFinished() && scanner.hasNextLine()) {
-				line++;
-				// Firstly, read the line and process it
-				String inputLine = scanner.nextLine();
-				// If it is a blank line, ignore it
-				if (inputLine.length() != 0){
-					try {
-						String parts [] = inputLine.split(";");
-						// Remove spaces and get an integer from those Strings
-						int table = Integer.parseInt(parts[0].trim());
-						int quantity = Integer.parseInt(parts[2].trim());
-						String item = parts[1].trim();
-						//The restaurant has 6 table and 
-						if(menuItemMap.containsItem(item) && (7>table && table>0) && (quantity>0)){
-							Order o = new Order(table, item, quantity);
+	public void populateWithFile(int line) throws IOException{
+		//Checks, if kitchen is still open
+		if (!this.isFinished()){
+			try{
+			//Gets line corresponding to argument value
+			String lineValue = Files.readAllLines(Paths.get("OrderInput.txt")).get(line).trim();
+			//Checks, if line exists and is not empty
+			if(lineValue!= null && !lineValue.isEmpty()){
+				String parts [] = lineValue.split(";");
+				// Remove spaces and get an integer from those Strings
+				int table = Integer.parseInt(parts[0].trim());
+				int quantity = Integer.parseInt(parts[2].trim());
+				String item = parts[1].trim();
+				//The restaurant is assumed to have 6 tables and quantity must be at least 1
+					if(menuItemMap.containsItem(item) && ((numberOfTables+1)>table && table>0) && (quantity>0)){
+						Order o;
+						try {
+							o = new Order(table, item, quantity);
 							//Checks, if order has been successfully added to orderTable
-							if(orderTable.addOrder(o))	{this.receiveOrder(o);}
-						}else{
-							String error = "Error in line " + line + " - There is no item called " + item + " in the menu";
+							if(orderTable.addOrder(o))	{this.receiveOrder(o);
+							} else{
+							String error = "Error in line " + line + " - There is no item called " 
+							+ item + " in the menu";
 							System.out.println(error);
 						}
-					}					
-					// This catches trying to convert a String to an integer
-					catch (NumberFormatException nfe) {
-						// It would not process that line, but print the error message
-						String error = "Number conversion error was found in line " + line + " - " + nfe.getMessage();
-						System.out.println(error);
-					}
-					// This catches missing items (if items < 3)
-					catch (ArrayIndexOutOfBoundsException air) {
-						// It would not process that line, but print the error message
-						String error = "Not enough items in line " + line + " (index position : " + air.getMessage() + ")";
-						System.out.println(error);
-					}
-					catch(InvalidPositiveInteger ipi){
-						// It would not process that line, but print the error message
-						System.out.println(ipi.getMessage());
-					}
+						} catch (InvalidPositiveInteger e) {
+							e.printStackTrace();
+						}						
 				}
 			}
-			scanner.close();
-		}
-		// This catches if the file is not found
-		catch (FileNotFoundException fnf){
-			System.out.println("File OrderInput.txt could not be found\n");
-			System.exit(0);
-		}
+		}catch (FileNotFoundException fnf){
+				System.out.println("File OrderInput.txt could not be found\n");
+				System.exit(0);
+		} 
 	}
+}
+	
 	
 	/**
 	 * Populates the collections of orders and items by generating random orders.
@@ -206,7 +213,7 @@ public class OrderGenerator extends Observable{
 			return report;		
 		}
 		
-	/**
+		/**
 		 * @return the menuItemMap
 		 */
 		public MenuItemMap getMenuItemMap() {
@@ -214,7 +221,9 @@ public class OrderGenerator extends Observable{
 		}
 
 		
-
+	/**
+	 * Starts all the threads.
+	 */
 	public void start() {
 		Thread kitchOrderThread = new Thread();
 		kitchOrderThread.start();
@@ -272,6 +281,13 @@ public class OrderGenerator extends Observable{
 		setChanged();
 		notifyObservers();
 		clearChanged();
+		
+		try {
+			//Slows thread
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -293,10 +309,13 @@ public class OrderGenerator extends Observable{
 	}
 
 
-		
-		public String getPopulateMethod(){
-			return populateMethod;
-		}
+	/**
+	 * Returns the method, how the order collections will be populated.	
+	 * @return String with order collection population method.
+	 */
+	public String getPopulateMethod(){
+		return populateMethod;
+	}
 	
 	public Order getFirstOrder(){
 		return this.ordersInKitchen.getFirst();
@@ -305,26 +324,34 @@ public class OrderGenerator extends Observable{
 	public synchronized void orderToHatch() {
 		Order firstOrder = this.getFirstOrder();
 		this.hatch.add(firstOrder);
+		log.addEntry("Order " + firstOrder.getOrderID()+ " ('" + firstOrder.getItemName() + "', x" + firstOrder.getQuantity()
+		+ ", table " + firstOrder.getTableID() + ") has been sent to the hatch.\r\n" );
 		ordersInKitchen.removeFirst();
 		if(ordersInKitchen.isEmpty())	this.setFinished();
+		
 		setChanged();
 		notifyObservers();
     	clearChanged();
 	}
 	
+	/**
+	 * Checks, if there are any orders in the kitchen.
+	 * @return true, if ordersInKitchen collection is empty, and false, if otherwise
+	 */
 	public boolean noOrdersInKitchen(){
 		if (ordersInKitchen.isEmpty()) {
 			return true;
 		} else {
 			return false;
 		}
-		
 	}
 	
 	public synchronized void orderToTable() {
 		if(!this.hatch.isEmpty()){
 			Order firstOrder = this.hatch.getFirst();
 			tables.get(firstOrder.getTableID()-1).add(firstOrder);
+			log.addEntry("Order " + firstOrder.getOrderID()+ " ('" + firstOrder.getItemName() + "', x" + firstOrder.getQuantity()
+			+ ", table " + firstOrder.getTableID() + ") has been sent to the table.\r\n" );
 			this.hatch.removeFirst();
 			if(ordersInKitchen.isEmpty() && hatch.isEmpty())	this.setHatchFinished();
 			setChanged();
@@ -332,5 +359,4 @@ public class OrderGenerator extends Observable{
 	    	clearChanged();
 		}
 	}
-
 }
