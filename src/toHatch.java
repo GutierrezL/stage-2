@@ -20,7 +20,9 @@ public class toHatch implements Runnable{
 			if(kitchen.isSimulationActive()&&(!kitchen.noOrdersInKitchen())){
 				waitingTime = kitchen.getMenuItemMap().findByName(kitchen.getFirstOrder().getItemName()).getPreparationTime() * 200;
 				if(!orderAvailable)	orderAvailable = true;
-			} try { Thread.sleep(waitingTime); }
+			}else if((!kitchen.isFinished()) && (kitchen.noOrdersInKitchen()))
+				orderAvailable = false;
+			try { Thread.sleep(waitingTime); }
 			catch (InterruptedException e) {}
 			if(orderAvailable)	kitchen.orderToHatch();
 		}

@@ -13,9 +13,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 
@@ -33,11 +35,13 @@ public class MVCRestaurantView extends JFrame implements Observer {
 	private JTextArea kitchenOrders;
 	private JTextArea hatchOrders;
 	private JTextArea [] tableDisplay;
+	protected JTextField discountField;
 	private JScrollPane scrollDown;
-	private JButton getBill,startSimulation; 
+	protected JButton getBill;
+	private JButton startSimulation, close; 
 	private JComboBox <String> dishes;
 	private JComboBox <String> kitchOpen;
-	
+	protected JComboBox<String> tables;
 	private OrderGenerator model;
 	private String report;
 	
@@ -50,7 +54,7 @@ public class MVCRestaurantView extends JFrame implements Observer {
         //set up window title
         setTitle("Kitchen Orders Simulation");
         //To ensure that when window is closed program ends
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		//set window size
 		//setPreferredSize(new Dimension(1100, 620));
 		this.model = model;
@@ -116,20 +120,25 @@ public class MVCRestaurantView extends JFrame implements Observer {
          southPanel.add(new JLabel("Table:"));
                         
         //create first combo box to allow for selection of table ID in order to get bill 
-        JComboBox<String> tables = new JComboBox<String>();
+        tables = new JComboBox<String>();
         // add items to the combo box
         tables.addItem("All");
         for (int i = 1; i < 7; i++){
         	tables.addItem("#" + i);
         }
-
         
         //add first combo box to south panel
         southPanel.add(tables, BorderLayout.BEFORE_FIRST_LINE);
         centrePanel.add(customTabDisplay(), BorderLayout.EAST);
         //button to get bill for table selected    
-        getBill = new JButton("Get Bill");   
-        southPanel.add(getBill); 
+        southPanel.add(new JLabel("Discount (%)"));   
+        discountField = new JTextField(3);
+        southPanel.add(discountField);
+        getBill = new JButton("Get Bill");
+        getBill.setEnabled(false);
+        southPanel.add(getBill);
+        close = new JButton("Close application");   
+        southPanel.add(close);
         //getBill.setEnabled(false);
         contentPane.add(southPanel, BorderLayout.SOUTH);
 
@@ -151,7 +160,6 @@ public class MVCRestaurantView extends JFrame implements Observer {
 			tableDisplay [i].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 			tableDisplay[i].setLineWrap(true); 
 			customTablePanel.add(tableDisplay[i]);
-			
 		}
 		return customTablePanel;
 		
@@ -161,8 +169,13 @@ public class MVCRestaurantView extends JFrame implements Observer {
     public void kitchenOrderListener(ActionListener a) {
     	startSimulation.addActionListener(a);
     }
+    public void orderBillListener(ActionListener a) {
+    	getBill.addActionListener(a);
+    }
+    public void closerListener(ActionListener a) {
+    	close.addActionListener(a);
+    }
     
-
     public String getPopulateMethod(){
     	String value = dishes.getSelectedItem().toString();
     	return value;
@@ -186,14 +199,11 @@ public class MVCRestaurantView extends JFrame implements Observer {
     }
     
     //Required methods for the Observer pattern
-    
     /**
      * Updates the GUI.
      */
     public synchronized void update(Observable o,  Object args) {
-    	
-    	//report = model.getReport();
-    	this.kitchenOrders.setText(model.getKitchenReport());
+       	this.kitchenOrders.setText(model.getKitchenReport());
     	this.hatchOrders.setText(model.getHatchReport());
     	for (int i = 0; i < model.getListOfTables().size(); i++) {
     		String report = model.getOrderList(i);
