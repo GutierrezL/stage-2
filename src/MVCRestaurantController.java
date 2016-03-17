@@ -23,16 +23,20 @@ public class MVCRestaurantController{
 		view.closerListener(new closerController());
 	}
 	
+	
+	
 	class restaurantController  implements ActionListener
 	{	
 	    public void actionPerformed(ActionEvent ae) 
 	    { 
+	    	//Gets order population method from the GUI.
 	    	String popValue = view.getPopulateMethod();
 	    	model.setPopulateMethod(popValue);
+	    	//Gets the length of time the kitchen will be open from the GUI.
 	    	String durValue = view.getKitchOpenTime();
 	    	model.setKitchOpenTime(durValue);
 			model.start();
-			view.getBill.setEnabled(true);
+			view.disableStartButton();
 	    }
 	 }
 	

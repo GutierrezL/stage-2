@@ -1,5 +1,3 @@
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 
 public class toHatch implements Runnable{
 
