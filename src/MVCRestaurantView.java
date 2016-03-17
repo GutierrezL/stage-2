@@ -168,6 +168,13 @@ public class MVCRestaurantView extends JFrame implements Observer {
     //MVC pattern - allows listeners to be added
     public void kitchenOrderListener(ActionListener a) {
     	startSimulation.addActionListener(a);
+    	startSimulation.setActionCommand("Start");
+    }
+    
+  //MVC pattern - allows listeners to be added
+    public void getBillListener(ActionListener a) {
+    	getBill.addActionListener(a);
+    	getBill.setActionCommand("GetBill");
     }
     public void orderBillListener(ActionListener a) {
     	getBill.addActionListener(a);
@@ -196,6 +203,13 @@ public class MVCRestaurantView extends JFrame implements Observer {
      */
     public void enableGetBillButton(){
     	getBill.setEnabled(true);
+    }
+    
+    /**
+     * Disables the Start button in the GUI.
+     */
+    public void disableStartButton(){
+    	startSimulation.setEnabled(false);
     }
     
     //Required methods for the Observer pattern
