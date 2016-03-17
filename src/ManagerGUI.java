@@ -37,14 +37,14 @@ public class ManagerGUI extends JFrame implements ActionListener{
 	private JScrollPane scrollSearch;
 	private JButton close, printBtn, getBill;
 	private JTextField tableIdField, discountField;
-	private Aggregator collections;
+	private OrderGenerator collections;
 	
 	/**
      * Creates the frame with its panels.
      * @param title The GUI title
      * @param Aggregator The class that joins all the different collections
      **/
-	public ManagerGUI(String title, Aggregator a){
+	public ManagerGUI(String title, OrderGenerator a){
 		setTitle(title);		
 		// Disable standard close button, since the reports will be created when
         // the personalized Close button is pressed

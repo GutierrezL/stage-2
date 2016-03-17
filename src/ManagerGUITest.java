@@ -15,7 +15,7 @@ public class ManagerGUITest {
 
 	@Test
 	public void testGenerateBill() {
-		Aggregator a = new Aggregator();
+		OrderGenerator a = new OrderGenerator();
 		//Creates a an instance of ManagerGUI.
 		ManagerGUI GUI = new ManagerGUI("Restaurant application", a);
 		GUI.setSize(600, 500);

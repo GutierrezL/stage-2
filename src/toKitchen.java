@@ -38,7 +38,8 @@ public class toKitchen implements Runnable {
 				} catch (InvalidPositiveInteger e1) {
 					e1.printStackTrace();
 				}
-			} if(!kitchen.isSimulationActive())	kitchen.setStartSimulation();
+			} 
+			if(!kitchen.isSimulationActive())	kitchen.setStartSimulation();
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {

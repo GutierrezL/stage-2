@@ -3,6 +3,10 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 /**
  * @author Otonye Manuel
  * Class that handles interaction with users and 
@@ -17,19 +21,48 @@ public class MVCRestaurantController{
 		model = m;
 		view = v;
 		view.kitchenOrderListener(new restaurantController());
+		view.orderBillListener(new billController());
+		view.closerListener(new closerController());
 	}
 	
 	class restaurantController  implements ActionListener
-{	
-    public void actionPerformed(ActionEvent ae) 
-    { 
-    	String popValue = view.getPopulateMethod();
-    	model.setPopulateMethod(popValue);
-    	String durValue = view.getKitchOpenTime();
-    	model.setKitchOpenTime(durValue);
-    	
-		model.start();
-    }
- }
+	{	
+	    public void actionPerformed(ActionEvent ae) 
+	    { 
+	    	String popValue = view.getPopulateMethod();
+	    	model.setPopulateMethod(popValue);
+	    	String durValue = view.getKitchOpenTime();
+	    	model.setKitchOpenTime(durValue);
+			model.start();
+			view.getBill.setEnabled(true);
+	    }
+	 }
+	
+	class billController  implements ActionListener
+	{	
+	    public void actionPerformed(ActionEvent ae) 
+	    { 
+	    	try{
+				String numberText = view.tables.getSelectedItem().toString().substring(1);
+				String discountText = view.discountField.getText().trim();
+				JTextArea bill = new JTextArea();
+				bill.setText(model.generateBill(numberText, discountText));
+				JOptionPane.showMessageDialog(view, new JScrollPane(bill), "Bill for TABLE " + numberText, JOptionPane.PLAIN_MESSAGE);
+			}
+			catch (NumberFormatException nfe) {
+				String error = "Number conversion error.\nPlease, make sure you've used numbers as input";
+				JOptionPane.showMessageDialog(view, error, "Bill could not be generated", JOptionPane.ERROR_MESSAGE);
+			}
+	    }
+	 }
+	
+	class closerController  implements ActionListener
+	{	
+	    public void actionPerformed(ActionEvent ae) 
+	    { 
+	    	model.writer("Report.txt", model.reporter());
+			System.exit(0);
+	    }
+	 }
 }
 
