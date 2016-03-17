@@ -24,5 +24,6 @@ public class toTables implements Runnable{
 		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		} 
+		kitchen.setSimFinished();
 	}
 }

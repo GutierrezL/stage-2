@@ -1,7 +1,5 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 
 /**
  * @author Otonye Manuel
@@ -21,15 +19,16 @@ public class MVCRestaurantController{
 	
 	class restaurantController  implements ActionListener
 {	
-    public void actionPerformed(ActionEvent ae) 
-    { 
-    	String popValue = view.getPopulateMethod();
-    	model.setPopulateMethod(popValue);
-    	String durValue = view.getKitchOpenTime();
-    	model.setKitchOpenTime(durValue);
-    	
-		model.start();
-    }
- }
+    public void actionPerformed(ActionEvent ae) { 
+    	if (ae.equals("Start")){ 
+    		String popValue = view.getPopulateMethod();
+    		model.setPopulateMethod(popValue);
+    		String durValue = view.getKitchOpenTime();
+    		model.setKitchOpenTime(durValue);
+    		System.out.println(ae.getActionCommand());
+    		model.start();
+    		view.disableStartButton();
+    		}
+    	}
+	}
 }
-

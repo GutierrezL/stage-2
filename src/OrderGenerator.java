@@ -35,6 +35,8 @@ public class OrderGenerator extends Observable{
 	private boolean hatchFinished;
 	//The duration of the simulation in seconds
 	private int kitchOpenTime;
+	//Shows, if the simulation is active, i.e. it becomes true when the last order reaches its table
+	private boolean simulationFinished;
 	
 	//Kitchen and hatch panel headers in the GUI
 	private static final String orderTitles = String.format("%-9s", "ID")+
@@ -64,6 +66,7 @@ public class OrderGenerator extends Observable{
 		hatchFinished = false;
 		startSimulation = false;
 		hatch = new LinkedList <Order>();
+		simulationFinished = false;
 		tables = new ArrayList<LinkedList<Order>>();
 		for (int i = 1; i <=6; i++) {
 			tables.add(new LinkedList<Order>());
@@ -86,7 +89,23 @@ public class OrderGenerator extends Observable{
 		public boolean isSimulationActive() {
 			return startSimulation;
 		}
-
+		
+		/**
+		 * Sets the simulation as finished; becomes true when last order reaches its table.
+		 */
+		public void setSimFinished(){
+			simulationFinished = true;
+		}
+		
+		/**
+		 * Returns the status of the simulation, i.e. false, if the start button has been 
+		 * pressed and the simulation is running. It becomes true when the last order reaches its table.
+		 * @return boolean with simulation status, false, if running, true, if finished.
+		 */
+		public boolean getSimFinished(){
+			return simulationFinished;
+		}
+		
 		public void setStartSimulation() {
 			this.startSimulation = true;
 		}
