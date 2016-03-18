@@ -33,40 +33,91 @@ DRINKS
 
 TABLE SUMMARY
 ==============
+TABLE 1
+SALMON CAKES        2  *  4.00 =   8.00
+BAKED CHEESECAKE    1  *  4.00 =   4.00
+RHUBARB CRUMBLE     10 *  3.50 =  35.00
+                                 ======
+Total for this table :            47.00
+Discount :                         8.00
+Discounted total :                39.00
+
+TABLE 2
+SPARKLING WATER     5  *  2.50 =  12.50
+SALAD               1  *  2.00 =   2.00
+                                 ======
+Total for this table :            14.50
+Discount :                         2.00
+Discounted total :                12.50
+
+TABLE 3
+STEAK               1  * 25.00 =  25.00
+CUSTARD TART        6  *  1.50 =   9.00
+SALAD               8  *  2.00 =  16.00
+JUICE               10 *  2.50 =  25.00
+                                 ======
+Total for this table :            75.00
+Discount :                        14.00
+Discounted total :                61.00
+
+TABLE 4
+RHUBARB CRUMBLE     6  *  3.50 =  21.00
+CUSTARD TART        2  *  1.50 =   3.00
+ROASTED VEGETABLES  6  *  3.50 =  21.00
+                                 ======
+Total for this table :            45.00
+Discount :                         8.00
+Discounted total :                37.00
+
+TABLE 5
+LEMON SORBET        8  *  3.50 =  28.00
+BAKED CHEESECAKE    2  *  4.00 =   8.00
+                                 ======
+Total for this table :            36.00
+Discount :                         6.00
+Discounted total :                30.00
+
+TABLE 6
+CUSTARD TART        9  *  1.50 =  13.50
+                                 ======
+Total for this table :            13.50
+Discount :                         2.00
+Discounted total :                11.50
+
 FREQUENCY REPORT
 ================
-There is no items ordered yet
+Salmon cakes          2
+Sparkling water       5
+Custard tart          17
+Lemon sorbet          8
+Steak                 1
+Juice                 10
+Rhubarb crumble       16
+Roasted vegetables    6
+Baked cheesecake      3
+Salad                 9
+
 DISHES NOT ORDERED
 ==================
-Baked cheesecake
 Cajun fries
 Coffee
-Custard tart
 French fries
 Garlic bread
 Grilled seabass
-Juice
 Lasagne
-Lemon sorbet
 Minestrone soup
 Mixed olives
 Mushroom risotto
-Rhubarb crumble
 Roast chicken
-Roasted vegetables
-Salad
-Salmon cakes
-Sparkling water
-Steak
 Tea
 
 BILLS PRICE STATISTICS (without discounts)
 ==========================================
-Most expensive table: Table 0, whose bill is £0.00
-Cheapest table: Table 0, whose bill is £0.00
-The average bill paid is: £0.00
+Most expensive table: Table 3, whose bill is £75.00
+Cheapest table: Table 6, whose bill is £13.50
+The average bill paid is: £38.50
 
 VEGETARIAN DISHES STATISTICS
 ============================
 Menu contains 14 veggie dishes out of 21
-0.0% of orders are vegetarian dishes
+96.0% of orders are vegetarian dishes

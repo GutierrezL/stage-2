@@ -1,10 +1,46 @@
 THE DAILY LOG 
-Order O00000001 ('Minestrone soup', x1, table 2) has been sent to the kitchen.
-Order O00000002 ('Steak', x2, table 1) has been sent to the kitchen.
-Order O00000001 ('Minestrone soup', x1, table 2) has been sent to the hatch.
-Order O00000001 ('Minestrone soup', x1, table 2) has been sent to the table.
-Order O00000003 ('Mushroom risotto', x3, table 1) has been sent to the kitchen.
-Order O00000002 ('Steak', x2, table 1) has been sent to the hatch.
-Order O00000002 ('Steak', x2, table 1) has been sent to the table.
-Order O00000003 ('Mushroom risotto', x3, table 1) has been sent to the hatch.
-Order O00000003 ('Mushroom risotto', x3, table 1) has been sent to the table.
+Order O00000001 ('Salad', x1, table 2) has been sent to the kitchen.
+Order O00000002 ('Sparkling water', x5, table 2) has been sent to the kitchen.
+Order O00000001 ('Salad', x1, table 2) has been sent to the hatch.
+Order O00000002 ('Sparkling water', x5, table 2) has been sent to the hatch.
+Order O00000001 ('Salad', x1, table 2) has been sent to the table.
+Order O00000003 ('Custard tart', x9, table 6) has been sent to the kitchen.
+Order O00000003 ('Custard tart', x9, table 6) has been sent to the hatch.
+Order O00000002 ('Sparkling water', x5, table 2) has been sent to the table.
+Order O00000005 ('Custard tart', x6, table 3) has been sent to the kitchen.
+Order O00000003 ('Custard tart', x9, table 6) has been sent to the table.
+Order O00000005 ('Custard tart', x6, table 3) has been sent to the hatch.
+Order O00000006 ('Salad', x8, table 3) has been sent to the kitchen.
+Order O00000005 ('Custard tart', x6, table 3) has been sent to the table.
+Order O00000007 ('Lemon sorbet', x8, table 5) has been sent to the kitchen.
+Order O00000006 ('Salad', x8, table 3) has been sent to the hatch.
+Order O00000008 ('Steak', x1, table 3) has been sent to the kitchen.
+Order O00000006 ('Salad', x8, table 3) has been sent to the table.
+Order O00000007 ('Lemon sorbet', x8, table 5) has been sent to the hatch.
+Order O00000009 ('Juice', x10, table 3) has been sent to the kitchen.
+Order O00000007 ('Lemon sorbet', x8, table 5) has been sent to the table.
+Order O00000010 ('Baked cheesecake', x2, table 5) has been sent to the kitchen.
+Order O00000008 ('Steak', x1, table 3) has been sent to the hatch.
+Order O00000009 ('Juice', x10, table 3) has been sent to the hatch.
+Order O00000011 ('Custard tart', x2, table 4) has been sent to the kitchen.
+Order O00000008 ('Steak', x1, table 3) has been sent to the table.
+Order O00000010 ('Baked cheesecake', x2, table 5) has been sent to the hatch.
+Order O00000012 ('Rhubarb crumble', x10, table 1) has been sent to the kitchen.
+Order O00000009 ('Juice', x10, table 3) has been sent to the table.
+Order O00000011 ('Custard tart', x2, table 4) has been sent to the hatch.
+Order O00000013 ('Roasted vegetables', x6, table 4) has been sent to the kitchen.
+Order O00000010 ('Baked cheesecake', x2, table 5) has been sent to the table.
+Order O00000012 ('Rhubarb crumble', x10, table 1) has been sent to the hatch.
+Order O00000014 ('Salmon cakes', x2, table 1) has been sent to the kitchen.
+Order O00000011 ('Custard tart', x2, table 4) has been sent to the table.
+Order O00000013 ('Roasted vegetables', x6, table 4) has been sent to the hatch.
+Order O00000015 ('Rhubarb crumble', x6, table 4) has been sent to the kitchen.
+Order O00000012 ('Rhubarb crumble', x10, table 1) has been sent to the table.
+Order O00000016 ('Baked cheesecake', x1, table 1) has been sent to the kitchen.
+Order O00000013 ('Roasted vegetables', x6, table 4) has been sent to the table.
+Order O00000014 ('Salmon cakes', x2, table 1) has been sent to the hatch.
+Order O00000014 ('Salmon cakes', x2, table 1) has been sent to the table.
+Order O00000015 ('Rhubarb crumble', x6, table 4) has been sent to the hatch.
+Order O00000015 ('Rhubarb crumble', x6, table 4) has been sent to the table.
+Order O00000016 ('Baked cheesecake', x1, table 1) has been sent to the hatch.
+Order O00000016 ('Baked cheesecake', x1, table 1) has been sent to the table.

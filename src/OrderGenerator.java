@@ -11,9 +11,6 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Random;
 import java.util.Map.Entry;
-
-import javax.swing.JOptionPane;
-
 import java.util.ArrayList;
 
 
@@ -27,7 +24,7 @@ public class OrderGenerator extends Observable{
 	private MenuItemMap menuItemMap;
 	//LinkedList containing all the orders, in the order they were read.
 	private LinkedList<Order> ordersInKitchen;
-	//list of tables
+	//Generated order report
 	private String report;
 	//Log instance using Singleton pattern
 	Log log;
@@ -45,6 +42,8 @@ public class OrderGenerator extends Observable{
 	private boolean hatchFinished;
 	//The duration of the simulation in seconds
 	private int kitchOpenTime;
+	//Shows, if the simulation is active, i.e. it becomes true when the last order reaches its table
+	private boolean simulationFinished;
 	
 	//Kitchen and hatch panel headers in the GUI
 	private static final String orderTitles = String.format("%-9s", "ID")+
@@ -68,6 +67,7 @@ public class OrderGenerator extends Observable{
 		hatchFinished = false;
 		startSimulation = false;
 		hatch = new LinkedList <Order>();
+		simulationFinished = false;
 		tables = new ArrayList<LinkedList<Order>>();
 		for (int i = 1; i <=6; i++) {
 			tables.add(new LinkedList<Order>());
@@ -79,28 +79,49 @@ public class OrderGenerator extends Observable{
 	 * Returns, if the kitchen is still open, i.e. still taking new orders.
 	 * @return true, if the closed, and false, if the kitchen is still open.
 	 */
-		public boolean isFinished() {
+	public boolean isFinished() {
 			return finished;
-		}
+	}
 
-		public boolean hatchIsFinished() {
-			return hatchFinished;
-		}
+	public boolean hatchIsFinished() {
+		return hatchFinished;
+	}
 		
-		public boolean isSimulationActive() {
-			return startSimulation;
-		}
-
-		public void setStartSimulation() {
-			this.startSimulation = true;
-		}
+	public boolean isSimulationActive() {
+		return startSimulation;
+	}
+		
+	/**
+	 * Sets the simulation as finished; becomes true when last order reaches its table.
+	 * Notifies the observers that the simulation has ended.
+	 */
+	public void setSimFinished(){
+		simulationFinished = true;
+			
+		//Notifies observers.
+		setChanged();
+		notifyObservers();
+		clearChanged();
+	}
+		
+	/**
+	 * Returns the status of the simulation, i.e. false, if the start button has been 
+	 * pressed and the simulation is running. It becomes true when the last order reaches its table.
+	 * @return boolean with simulation status, false, if running, true, if finished.
+	 */
+	public boolean getSimFinished(){
+		return simulationFinished;
+	}
+		
+	public void setStartSimulation() {
+		this.startSimulation = true;
+	}
 	
 	/**
 	 * Indicates the end of the working hours of the kitchen, i.e. no more orders accepted.	
 	 */
- 	//indicates end of auction
 	public void setFinished() {
-			finished = true;
+		finished = true;
 	}
 	
 	/**

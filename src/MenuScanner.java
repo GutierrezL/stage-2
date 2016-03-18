@@ -3,15 +3,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-/*
- * Advanced Software Engineering coursework
- * @author Linda Viksne
- */
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+
 
 /**
  * A class for scanning the menu input text file.
