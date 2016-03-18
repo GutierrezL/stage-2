@@ -164,16 +164,12 @@ public class MVCRestaurantView extends JFrame implements Observer {
        
     public void kitchenOrderListener(ActionListener a) {
     	startSimulation.addActionListener(a);
-    	startSimulation.setActionCommand("Start");
     }
     
-    public void getBillListener(ActionListener a) {
-    	getBill.addActionListener(a);
-    	getBill.setActionCommand("GetBill");
-    }
     public void orderBillListener(ActionListener a) {
     	getBill.addActionListener(a);
     }
+    
     public void closerListener(ActionListener a) {
     	close.addActionListener(a);
     }

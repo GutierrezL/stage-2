@@ -23,8 +23,6 @@ public class MVCRestaurantController{
 		view.closerListener(new closerController());
 	}
 	
-	
-	
 	class restaurantController  implements ActionListener
 	{	
 	    public void actionPerformed(ActionEvent ae) 
