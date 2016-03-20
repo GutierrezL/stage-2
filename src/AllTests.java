@@ -7,7 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 
 @RunWith(Suite.class)
-@SuiteClasses({ ManagerGUITest.class, MenuItemTest.class, OrderTableTest.class, OrderTest.class })
+@SuiteClasses({ MenuItemTest.class, OrderTableTest.class, OrderTest.class })
 public class AllTests {
 
 }

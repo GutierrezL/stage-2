@@ -13,56 +13,54 @@ import java.util.Random;
 import java.util.Map.Entry;
 import java.util.ArrayList;
 
-
 public class OrderGenerator extends Observable{
-	
-	//Set to true when the kitchen closes, i.e. no more orders accepted
-	private boolean finished;
+
 	//OrderTable variable containing information of all the orders
 	private OrderTable orderTable;
 	//Instance variable which stores all the items in the menu
 	private MenuItemMap menuItemMap;
-	//LinkedList containing all the orders, in the order they were read.
+	//LinkedList containing all the orders...
+	//...in the kitchen,...
 	private LinkedList<Order> ordersInKitchen;
-	//Generated order report
-	private String report;
+	//...in the hatch and...
+	private LinkedList<Order> hatch;
+	//...at each table
+	private ArrayList<LinkedList<Order>> tables;
 	//Log instance using Singleton pattern
 	Log log;
 	//Order collection population method
 	private String populateMethod;
-	private ArrayList<LinkedList<Order>> tables;
-	//List of orders
-	private LinkedList<Order> hatch;
+	//Set to true when the kitchen closes, i.e. no more orders accepted
+	private boolean finished;
+	//Set to true when the hatch doesn't contain orders
+	private boolean hatchFinished;
+	//Number of tables in the restaurant
 	private int numberOfTables;
 	// This collection maps pairs of integers corresponding to table numbers as keys
 	// and discounts provided by the waiter as values
 	private HashMap<Integer,Integer> discounts;
-	//Set to true when the kitchen closes, i.e. no more orders accepted
+	//Set to true when the kitchen opens and orders start to be made
 	private boolean startSimulation;
-	private boolean hatchFinished;
 	//The duration of the simulation in seconds
 	private int kitchOpenTime;
 	//Shows, if the simulation is active, i.e. it becomes true when the last order reaches its table
 	private boolean simulationFinished;
-	
+
 	//Kitchen and hatch panel headers in the GUI
 	private static final String orderTitles = String.format("%-9s", "ID")+
 			String.format("%-7s", "TABLE")+ String.format("%-22s", "ITEM NAME") + 
 			String.format("%-5s", "QUANT") +"\r\n";
-	
+
 	public OrderGenerator() {
-		
 		orderTable = new OrderTable();
 		menuItemMap = new MenuItemMap();
 		MenuScanner s = new MenuScanner();
 		menuItemMap = s.getMenuEntries();
 		discounts = new HashMap<Integer,Integer>();
 		ordersInKitchen = new LinkedList<Order>();
-		report = "";
 		populateMethod = "";
 		log = Log.getInstance();
 		numberOfTables = 6;
-		
 		finished = false;
 		hatchFinished = false;
 		startSimulation = false;
@@ -73,37 +71,36 @@ public class OrderGenerator extends Observable{
 			tables.add(new LinkedList<Order>());
 		}
 	}
-	
-	
+
 	/**
 	 * Returns, if the kitchen is still open, i.e. still taking new orders.
 	 * @return true, if the closed, and false, if the kitchen is still open.
 	 */
 	public boolean isFinished() {
-			return finished;
+		return finished;
 	}
 
 	public boolean hatchIsFinished() {
 		return hatchFinished;
 	}
-		
+
 	public boolean isSimulationActive() {
 		return startSimulation;
 	}
-		
+
 	/**
 	 * Sets the simulation as finished; becomes true when last order reaches its table.
 	 * Notifies the observers that the simulation has ended.
 	 */
 	public void setSimFinished(){
 		simulationFinished = true;
-			
+
 		//Notifies observers.
 		setChanged();
 		notifyObservers();
 		clearChanged();
 	}
-		
+
 	/**
 	 * Returns the status of the simulation, i.e. false, if the start button has been 
 	 * pressed and the simulation is running. It becomes true when the last order reaches its table.
@@ -112,18 +109,18 @@ public class OrderGenerator extends Observable{
 	public boolean getSimFinished(){
 		return simulationFinished;
 	}
-		
+
 	public void setStartSimulation() {
 		this.startSimulation = true;
 	}
-	
+
 	/**
 	 * Indicates the end of the working hours of the kitchen, i.e. no more orders accepted.	
 	 */
 	public void setFinished() {
 		finished = true;
 	}
-	
+
 	/**
 	 * Returns all the orders in the kitchen in the order they arrived to the kitchen.
 	 * @return a LinkedList of all the orders in the kitchen.
@@ -131,7 +128,7 @@ public class OrderGenerator extends Observable{
 	public LinkedList <Order> getOrdersInKitchen(){
 		return ordersInKitchen;
 	}
-	
+
 	/**
 	 * Sets the String describing how the orders should be generated.
 	 * @param value String value describing how the orders should be generated.
@@ -139,7 +136,7 @@ public class OrderGenerator extends Observable{
 	public void setPopulateMethod(String value){
 		populateMethod = value;
 	}
-	
+
 	/**
 	 * Sets the duration of simulation in seconds.
 	 * @param value String value describing how the orders should be generated.
@@ -148,7 +145,7 @@ public class OrderGenerator extends Observable{
 		int time = Integer.parseInt(value.trim());
 		kitchOpenTime = time;
 	}
-	
+
 	/**
 	 * Returns the duration in seconds for which the kitchen is open in the simulation.
 	 * @return integer containing duration of kitchen opening time in seconds.
@@ -156,7 +153,7 @@ public class OrderGenerator extends Observable{
 	public int getKitchOpenTime(){
 		return kitchOpenTime;
 	}
-	
+
 	/**
 	 * This method populates the collections of orders and items using input text files
 	 */
@@ -164,16 +161,16 @@ public class OrderGenerator extends Observable{
 		//Checks, if kitchen is still open
 		if (!this.isFinished()){
 			try{
-			//Gets line corresponding to argument value
-			String lineValue = Files.readAllLines(Paths.get("OrderInput.txt")).get(line).trim();
-			//Checks, if line exists and is not empty
-			if(lineValue!= null && !lineValue.isEmpty()){
-				String parts [] = lineValue.split(";");
-				// Remove spaces and get an integer from those Strings
-				int table = Integer.parseInt(parts[0].trim());
-				int quantity = Integer.parseInt(parts[2].trim());
-				String item = parts[1].trim();
-				//The restaurant is assumed to have 6 tables and quantity must be at least 1
+				//Gets line corresponding to argument value
+				String lineValue = Files.readAllLines(Paths.get("OrderInput.txt")).get(line).trim();
+				//Checks, if line exists and is not empty
+				if(lineValue!= null && !lineValue.isEmpty()){
+					String parts [] = lineValue.split(";");
+					// Remove spaces and get an integer from those Strings
+					int table = Integer.parseInt(parts[0].trim());
+					int quantity = Integer.parseInt(parts[2].trim());
+					String item = parts[1].trim();
+					//The restaurant is assumed to have 6 tables and quantity must be at least 1
 					if(menuItemMap.containsItem(item) && ((numberOfTables+1)>table && table>0) && (quantity>0)){
 						Order o;
 						try {
@@ -181,23 +178,22 @@ public class OrderGenerator extends Observable{
 							//Checks, if order has been successfully added to orderTable
 							if(orderTable.addOrder(o))	{this.receiveOrder(o);
 							} else{
-							String error = "Error in line " + line + " - There is no item called " 
-							+ item + " in the menu";
-							System.out.println(error);
-						}
+								String error = "Error in line " + line + " - There is no item called " 
+										+ item + " in the menu";
+								System.out.println(error);
+							}
 						} catch (InvalidPositiveInteger e) {
 							e.printStackTrace();
 						}						
+					}
 				}
-			}
-		}catch (FileNotFoundException fnf){
+			}catch (FileNotFoundException fnf){
 				System.out.println("File OrderInput.txt could not be found\n");
 				System.exit(0);
-		} 
+			} 
+		}
 	}
-}
-	
-	
+
 	/**
 	 * Populates the collections of orders and items by generating random orders.
 	 * @throws InvalidPositiveInteger 
@@ -209,63 +205,66 @@ public class OrderGenerator extends Observable{
 		}
 		setChanged();
 		notifyObservers();
-    	clearChanged();
+		clearChanged();
 	}
-	
+
 	public void setHatchFinished() {
 		hatchFinished = true;
 	}
-	
-	//returns customer list
-		public ArrayList<LinkedList<Order>> getListOfTables() {
-			return tables;
-		}
-	
-		public LinkedList<Order> getHatch() {
-			return hatch;
-		}
-		
-		public String getOrderList(int i) {
-			String report = "TABLE " + (i+1) + "\n";
-			if (tables.get(i).size() == 0) {
-				report += "There are no orders to show";
-			}else {
-				int num = 1;
-				for (Order o : tables.get(i)) {
-					report  += num++ + " " + o.getItemName() + " * " + o.getQuantity() + "\n";
-				}
-			}
-			return report;		
-		}
-		
-		/**
-		 * @return the menuItemMap
-		 */
-		public MenuItemMap getMenuItemMap() {
-			return menuItemMap;
-		}
 
-		
+	public ArrayList<LinkedList<Order>> getListOfTables() {
+		return tables;
+	}
+
+	public LinkedList<Order> getHatch() {
+		return hatch;
+	}
+	
+	/**
+	 * This method returns a summary for all the orders in the given table
+	 * @param i	Table number
+	 * @return	a String containing data about the orders in the table
+	 */
+	public String getOrderList(int i) {
+		String report = "TABLE " + (i+1) + "\n";
+		if (tables.get(i).size() == 0) {
+			report += "There are no orders to show";
+		}else {
+			int num = 1;
+			for (Order o : tables.get(i)) {
+				report  += num++ + " " + o.getItemName() + " * " + o.getQuantity() + "\n";
+			}
+		}
+		return report;		
+	}
+
+	/**
+	 * @return the menuItemMap
+	 */
+	public MenuItemMap getMenuItemMap() {
+		return menuItemMap;
+	}
+
 	/**
 	 * Starts all the threads.
 	 */
 	public void start() {
 		Thread kitchOrderThread = new Thread();
 		kitchOrderThread.start();
-		
+
 		toKitchen firstStep = new toKitchen(this);
 		Thread sendToKitchen = new Thread(firstStep);
 		sendToKitchen.start();	
-		
+
 		toHatch secondStep = new toHatch(this);
 		Thread sendToHatch = new Thread(secondStep);
 		sendToHatch.start();
-		
+
 		toTables thirdStep = new toTables(this);
 		Thread sendToTables = new Thread(thirdStep);
 		sendToTables.start();
 	}
-	
+
 	/**
 	 * Returns the current version of the report, i.e. a list of orders 
 	 * in the kitchen.
@@ -278,7 +277,7 @@ public class OrderGenerator extends Observable{
 		}
 		return report;	
 	}
-	
+
 	/**
 	 * Returns the current version of the report, i.e. a list of orders 
 	 * in the hatch.
@@ -291,7 +290,7 @@ public class OrderGenerator extends Observable{
 		}
 		return report;	
 	}
-	
+
 	/**
 	 * Gets the next order.
 	 * Once this method is started, it should be allowed to finish.
@@ -299,14 +298,13 @@ public class OrderGenerator extends Observable{
 	 */
 	public synchronized void receiveOrder(Order o) {
 		ordersInKitchen.add(o);
-		report = this.getKitchenReport();
 		log.addEntry("Order " + o.getOrderID()+ " ('" + o.getItemName() + "', x" + o.getQuantity()
 		+ ", table " + o.getTableID() + ") has been sent to the kitchen.\r\n" );
-		
+
 		setChanged();
 		notifyObservers();
 		clearChanged();
-		
+
 		try {
 			//Slows thread
 			Thread.sleep(500);
@@ -314,9 +312,7 @@ public class OrderGenerator extends Observable{
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
 	/**
 	 * Creates a random order.
 	 * @return a random order.
@@ -333,7 +329,6 @@ public class OrderGenerator extends Observable{
 		return o;
 	}
 
-
 	/**
 	 * Returns the method, how the order collections will be populated.	
 	 * @return String with order collection population method.
@@ -341,23 +336,26 @@ public class OrderGenerator extends Observable{
 	public String getPopulateMethod(){
 		return populateMethod;
 	}
-	
+
 	public Order getFirstOrder(){
 		return this.ordersInKitchen.getFirst();
 	}
-	
+
+	/**
+	 * Method which sends the first order in the kitchen to the hatch. Then, it
+	 * notifies the observers and adds an entry in the Log file.
+	 */
 	public synchronized void orderToHatch() {
 		Order firstOrder = this.getFirstOrder();
 		this.hatch.add(firstOrder);
 		log.addEntry("Order " + firstOrder.getOrderID()+ " ('" + firstOrder.getItemName() + "', x" + firstOrder.getQuantity()
 		+ ", table " + firstOrder.getTableID() + ") has been sent to the hatch.\r\n" );
 		ordersInKitchen.removeFirst();
-		
 		setChanged();
 		notifyObservers();
-    	clearChanged();
+		clearChanged();
 	}
-	
+
 	/**
 	 * Checks, if there are any orders in the kitchen.
 	 * @return true, if ordersInKitchen collection is empty, and false, if otherwise
@@ -370,6 +368,10 @@ public class OrderGenerator extends Observable{
 		}
 	}
 	
+	/**
+	 * Method which sends the first order in the hatch to the corresponding table. Then, it
+	 * notifies the observers and adds an entry in the Log file.
+	 */
 	public synchronized void orderToTable() {
 		if(!this.hatch.isEmpty()){
 			Order firstOrder = this.hatch.getFirst();
@@ -380,10 +382,10 @@ public class OrderGenerator extends Observable{
 			if(ordersInKitchen.isEmpty() && hatch.isEmpty())	this.setHatchFinished();
 			setChanged();
 			notifyObservers();
-	    	clearChanged();
+			clearChanged();
 		}
 	}
-	
+
 	/**
 	 * Method used to generate a String of summaries and tables of orders and items in 
 	 * the menu in an output file
@@ -407,7 +409,7 @@ public class OrderGenerator extends Observable{
 		report += String.format("%.1f", vegetarianOrdersPercentage()) + "% of orders are vegetarian dishes";
 		return report;
 	}
-	
+
 	/**
 	 * This method writes supplied text to file. If the filename is not found,
 	 * it will throw an FileNotFoundException. And if filename exists, but any
@@ -417,25 +419,25 @@ public class OrderGenerator extends Observable{
 	 * @param report  String containing text to be written to the file
 	 */
 	public void writer(String filename, String report) {
-		 FileWriter fW;
-		 try {
-			 fW = new FileWriter(filename);
-			 fW.write("-----------------------------------------------\n"
-		    		+ "------ COMPLETE REPORT OF THE RESTAURANT ------\n"
-		    		+ "-----------------------------------------------\n");
-			 fW.write(report);
-			 fW.close();
-		 }
-		 catch (FileNotFoundException fnf){
-			 System.out.println("Sorry, but " + filename + " could not be found\n");
-			 // If this error occurs, the application would end
-			 System.exit(0);
-		 }
-		 catch (IOException ioe){
-		    ioe.printStackTrace();
-		    // If this error occurs, the application would end
-		    System.exit(1);
-		 }
+		FileWriter fW;
+		try {
+			fW = new FileWriter(filename);
+			fW.write("-----------------------------------------------\n"
+					+ "------ COMPLETE REPORT OF THE RESTAURANT ------\n"
+					+ "-----------------------------------------------\n");
+			fW.write(report);
+			fW.close();
+		}
+		catch (FileNotFoundException fnf){
+			System.out.println("Sorry, but " + filename + " could not be found\n");
+			// If this error occurs, the application would end
+			System.exit(0);
+		}
+		catch (IOException ioe){
+			ioe.printStackTrace();
+			// If this error occurs, the application would end
+			System.exit(1);
+		}
 	}
 
 	/**
@@ -448,7 +450,7 @@ public class OrderGenerator extends Observable{
 	protected void updateDiscounts(int table, int discount){
 		discounts.put(table, discount);
 	}
-	
+
 	/**
 	 * Method used to update the discounts collection removing an entry where the table
 	 * specified may be present as key
@@ -457,7 +459,7 @@ public class OrderGenerator extends Observable{
 	protected void deleteDiscount(int table){
 		discounts.remove(table);
 	}
-	
+
 	/**
 	 * Returns a table's bill price without considering discounts
 	 * @param table	Table number
@@ -476,7 +478,7 @@ public class OrderGenerator extends Observable{
 		}
 		return total;
 	}
-	
+
 	/**
 	 * Returns a table's bill price considering discounts
 	 * @param table	Table number
@@ -488,8 +490,8 @@ public class OrderGenerator extends Observable{
 		if(discounts.containsKey(table)){
 			double discount = total * (discounts.get(table)/100.0);
 			total -= discount;
-		// If not, an automatic discount will be applied. This automatic discount are two pounds for
-		// each ten pounds spent.
+			// If not, an automatic discount will be applied. This automatic discount are two pounds for
+			// each ten pounds spent.
 		}else{
 			int autoDiscount = (int) (total/10);
 			autoDiscount *= 2;
@@ -497,7 +499,7 @@ public class OrderGenerator extends Observable{
 		}
 		return total;
 	}
-	
+
 	/**
 	 * Returns the table number with the most expensive bill. If there is no orders
 	 * yet, returns 0 and shows an error message
@@ -518,7 +520,7 @@ public class OrderGenerator extends Observable{
 			System.out.println("There is no orders yet");
 		return table;
 	}
-	
+
 	/**
 	 * Returns the table number with the cheapest bill. If there is no orders yet, 
 	 * returns 0 and shows an error message
@@ -539,7 +541,7 @@ public class OrderGenerator extends Observable{
 			System.out.println("There is no orders yet");
 		return table;
 	}
-	
+
 	/**
 	 * Returns the average price of all the bills, or 0 if there is no orders yet
 	 * @return	an double with the average bill price
@@ -555,8 +557,8 @@ public class OrderGenerator extends Observable{
 			System.out.println("There is no orders yet");
 		return Math.round((average/numberOfTables) * 100.0) / 100.0;
 	}
-	
-	
+
+
 	/**
 	 * Returns a frequency report showing name of items ordered and how many times
 	 * they have been requested
@@ -567,7 +569,7 @@ public class OrderGenerator extends Observable{
 		report += orderTable.orderedItems();
 		return report;
 	}
-	
+
 	/**
 	 * Returns a report showing name of items not ordered
 	 * @return	a String containing names of all the items not ordered in the menu
@@ -588,7 +590,7 @@ public class OrderGenerator extends Observable{
 			report += "There is no dishes in the menu yet\n";
 		return report;
 	}
-	
+
 	/**
 	 * Returns a bill for a specified table. It also checks if the specified table
 	 * contains an entry in the discounts collection. If so, it will apply that
@@ -619,19 +621,19 @@ public class OrderGenerator extends Observable{
 		}
 		return bill;
 	}
-	
+
 	/**
 	 * Returns the bills for all the tables
 	 * @return	a String containing the bills, including its menu items and quantity, prices and discounts
 	 */
 	public String printBills(){
 		String report = "";
-			for(Integer i : orderTable.getOrderTable().keySet()) {
-				report += getTableBill(i);
-			}
+		for(Integer i : orderTable.getOrderTable().keySet()) {
+			report += getTableBill(i);
+		}
 		return report;
 	}
-	
+
 	/**
 	 * Returns the number of vegetarian dishes ordered
 	 * @return	an Integer with the number of vegetarian items ordered
@@ -645,8 +647,7 @@ public class OrderGenerator extends Observable{
 		}
 		return amount;
 	}
-	
-	
+
 	/**
 	 * Returns the percentage of items ordered which are suitable for vegetarians
 	 * @return a double with the percentage of veggie dishes ordered
@@ -667,26 +668,22 @@ public class OrderGenerator extends Observable{
 		}else
 			return 0;
 	}
-	
+
+	/**
+	 * If a discount is provided, it creates a new entry for the specified table in the discount collection If not, 
+	 * removes a possible entry for that table. This will allow the automatic discounts work
+	 * @param numberText	Table number whose bill will be generated
+	 * @param discountText	Percentage of discount applied to that table
+	 * @return
+	 */
 	public String generateBill(String numberText, String discountText){
-		//try{
-			//String numberText = tables.getSelectedItem().toString().substring(1);
-			//String discountText = discountField.getText().trim();
-				int number = Integer.parseInt(numberText);
-				if(!discountText.equals("")){
-					int discount = Integer.parseInt(discountText);
-					this.updateDiscounts(number, discount);
-				}else{
-					this.deleteDiscount(number);
-				}
-				return this.getTableBill(number);
-				//JOptionPane.showMessageDialog(this, model.getTableBill(number));
-		//}
-		//catch (NumberFormatException nfe) {
-			// It would not process that line, but print the error message
-			//String error = "Number conversion error.\nPlease, make sure you've used numbers as input";
-			//JOptionPane.showMessageDialog(this, error)
-			//return false;
-		//}
-    }
+		int number = Integer.parseInt(numberText);
+		if(!discountText.equals("")){
+			int discount = Integer.parseInt(discountText);
+			this.updateDiscounts(number, discount);
+		}else{
+			this.deleteDiscount(number);
+		}
+		return this.getTableBill(number);
+	}
 }

@@ -7,15 +7,14 @@ public class toHatch implements Runnable{
 		kitchen = k;
 	}
 
-	//Tables receive orders repeatedly until kitchen is empty
+	//This class sends orders from the kitchen to the hatch once they are ready
 	public void run() {
 		int waitingTime = 100;
 		boolean orderAvailable = false;
-		//try { Thread.sleep(1000); }
-	   // catch (InterruptedException e) {}
-		//loop while kitchen not empty
+		// If the kitchen is not closes and has ready orders, the thread keep sending orders to the hatch
 		while ((!kitchen.isFinished()) || (!kitchen.noOrdersInKitchen())) {
 			if(kitchen.isSimulationActive()&&(!kitchen.noOrdersInKitchen())){
+				// The thread waits as much time as the order takes to be prepared, simulation the real functioning of a kitchen
 				waitingTime = kitchen.getMenuItemMap().findByName(kitchen.getFirstOrder().getItemName()).getPreparationTime() * 200;
 				if(!orderAvailable)	orderAvailable = true;
 			}else if((!kitchen.isFinished()) && (kitchen.noOrdersInKitchen()))

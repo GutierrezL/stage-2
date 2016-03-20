@@ -1,9 +1,7 @@
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 /**
  * @author Otonye Manuel
@@ -42,15 +40,21 @@ public class MVCRestaurantController{
 	{	
 	    public void actionPerformed(ActionEvent ae) 
 	    { 
+	    	javax.swing.UIManager.put("OptionPane.messageFont", new Font(Font.MONOSPACED, Font.PLAIN, 12));
 	    	try{
 				String numberText = view.tables.getSelectedItem().toString().substring(1);
 				String discountText = view.discountField.getText().trim();
-				JTextArea bill = new JTextArea();
-				bill.setText(model.generateBill(numberText, discountText));
-				JOptionPane.showMessageDialog(view, new JScrollPane(bill), "Bill for TABLE " + numberText, JOptionPane.PLAIN_MESSAGE);
-			}
+				if(!discountText.equals("")){
+					if(Integer.parseInt(discountText) < 0 || Integer.parseInt(discountText) > 100){
+						String error = "Provided discount is not a correct percentage";
+						JOptionPane.showMessageDialog(view, error, "Bill could not be generated", JOptionPane.ERROR_MESSAGE);
+					}else
+						JOptionPane.showMessageDialog(view, model.generateBill(numberText, discountText), "Bill for TABLE " + numberText, JOptionPane.PLAIN_MESSAGE);
+				}else
+					JOptionPane.showMessageDialog(view, model.generateBill(numberText, discountText), "Bill for TABLE " + numberText, JOptionPane.PLAIN_MESSAGE);
+	    	}
 			catch (NumberFormatException nfe) {
-				String error = "Number conversion error.\nPlease, make sure you've used numbers as input";
+				String error = "Number conversion error.\nPlease, make sure you've used numbers as discount";
 				JOptionPane.showMessageDialog(view, error, "Bill could not be generated", JOptionPane.ERROR_MESSAGE);
 			}
 	    }

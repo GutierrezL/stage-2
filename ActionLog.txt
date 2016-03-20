@@ -1,46 +1,46 @@
 THE DAILY LOG 
-Order O00000001 ('Salad', x1, table 2) has been sent to the kitchen.
-Order O00000002 ('Sparkling water', x5, table 2) has been sent to the kitchen.
-Order O00000001 ('Salad', x1, table 2) has been sent to the hatch.
-Order O00000002 ('Sparkling water', x5, table 2) has been sent to the hatch.
-Order O00000001 ('Salad', x1, table 2) has been sent to the table.
-Order O00000003 ('Custard tart', x9, table 6) has been sent to the kitchen.
-Order O00000003 ('Custard tart', x9, table 6) has been sent to the hatch.
-Order O00000002 ('Sparkling water', x5, table 2) has been sent to the table.
-Order O00000005 ('Custard tart', x6, table 3) has been sent to the kitchen.
-Order O00000003 ('Custard tart', x9, table 6) has been sent to the table.
-Order O00000005 ('Custard tart', x6, table 3) has been sent to the hatch.
-Order O00000006 ('Salad', x8, table 3) has been sent to the kitchen.
-Order O00000005 ('Custard tart', x6, table 3) has been sent to the table.
-Order O00000007 ('Lemon sorbet', x8, table 5) has been sent to the kitchen.
-Order O00000006 ('Salad', x8, table 3) has been sent to the hatch.
-Order O00000008 ('Steak', x1, table 3) has been sent to the kitchen.
-Order O00000006 ('Salad', x8, table 3) has been sent to the table.
-Order O00000007 ('Lemon sorbet', x8, table 5) has been sent to the hatch.
-Order O00000009 ('Juice', x10, table 3) has been sent to the kitchen.
-Order O00000007 ('Lemon sorbet', x8, table 5) has been sent to the table.
-Order O00000010 ('Baked cheesecake', x2, table 5) has been sent to the kitchen.
-Order O00000008 ('Steak', x1, table 3) has been sent to the hatch.
-Order O00000009 ('Juice', x10, table 3) has been sent to the hatch.
-Order O00000011 ('Custard tart', x2, table 4) has been sent to the kitchen.
-Order O00000008 ('Steak', x1, table 3) has been sent to the table.
-Order O00000010 ('Baked cheesecake', x2, table 5) has been sent to the hatch.
-Order O00000012 ('Rhubarb crumble', x10, table 1) has been sent to the kitchen.
-Order O00000009 ('Juice', x10, table 3) has been sent to the table.
-Order O00000011 ('Custard tart', x2, table 4) has been sent to the hatch.
-Order O00000013 ('Roasted vegetables', x6, table 4) has been sent to the kitchen.
-Order O00000010 ('Baked cheesecake', x2, table 5) has been sent to the table.
-Order O00000012 ('Rhubarb crumble', x10, table 1) has been sent to the hatch.
-Order O00000014 ('Salmon cakes', x2, table 1) has been sent to the kitchen.
-Order O00000011 ('Custard tart', x2, table 4) has been sent to the table.
-Order O00000013 ('Roasted vegetables', x6, table 4) has been sent to the hatch.
-Order O00000015 ('Rhubarb crumble', x6, table 4) has been sent to the kitchen.
-Order O00000012 ('Rhubarb crumble', x10, table 1) has been sent to the table.
-Order O00000016 ('Baked cheesecake', x1, table 1) has been sent to the kitchen.
-Order O00000013 ('Roasted vegetables', x6, table 4) has been sent to the table.
-Order O00000014 ('Salmon cakes', x2, table 1) has been sent to the hatch.
-Order O00000014 ('Salmon cakes', x2, table 1) has been sent to the table.
-Order O00000015 ('Rhubarb crumble', x6, table 4) has been sent to the hatch.
-Order O00000015 ('Rhubarb crumble', x6, table 4) has been sent to the table.
-Order O00000016 ('Baked cheesecake', x1, table 1) has been sent to the hatch.
-Order O00000016 ('Baked cheesecake', x1, table 1) has been sent to the table.
+Order O00000001 ('Steak', x9, table 4) has been sent to the kitchen.
+Order O00000002 ('Salad', x2, table 1) has been sent to the kitchen.
+Order O00000003 ('Mixed olives', x2, table 4) has been sent to the kitchen.
+Order O00000001 ('Steak', x9, table 4) has been sent to the hatch.
+Order O00000001 ('Steak', x9, table 4) has been sent to the table.
+Order O00000004 ('Steak', x2, table 5) has been sent to the kitchen.
+Order O00000002 ('Salad', x2, table 1) has been sent to the hatch.
+Order O00000003 ('Mixed olives', x2, table 4) has been sent to the hatch.
+Order O00000002 ('Salad', x2, table 1) has been sent to the table.
+Order O00000005 ('Grilled seabass', x5, table 1) has been sent to the kitchen.
+Order O00000003 ('Mixed olives', x2, table 4) has been sent to the table.
+Order O00000006 ('Cajun fries', x7, table 2) has been sent to the kitchen.
+Order O00000004 ('Steak', x2, table 5) has been sent to the hatch.
+Order O00000004 ('Steak', x2, table 5) has been sent to the table.
+Order O00000007 ('Roast chicken', x10, table 2) has been sent to the kitchen.
+Order O00000008 ('Garlic bread', x9, table 3) has been sent to the kitchen.
+Order O00000009 ('Coffee', x7, table 3) has been sent to the kitchen.
+Order O00000005 ('Grilled seabass', x5, table 1) has been sent to the hatch.
+Order O00000005 ('Grilled seabass', x5, table 1) has been sent to the table.
+Order O00000010 ('Lemon sorbet', x9, table 1) has been sent to the kitchen.
+Order O00000006 ('Cajun fries', x7, table 2) has been sent to the hatch.
+Order O00000006 ('Cajun fries', x7, table 2) has been sent to the table.
+Order O00000011 ('Lemon sorbet', x1, table 6) has been sent to the kitchen.
+Order O00000012 ('Baked cheesecake', x1, table 1) has been sent to the kitchen.
+Order O00000013 ('Custard tart', x3, table 6) has been sent to the kitchen.
+Order O00000007 ('Roast chicken', x10, table 2) has been sent to the hatch.
+Order O00000007 ('Roast chicken', x10, table 2) has been sent to the table.
+Order O00000014 ('Custard tart', x2, table 4) has been sent to the kitchen.
+Order O00000008 ('Garlic bread', x9, table 3) has been sent to the hatch.
+Order O00000009 ('Coffee', x7, table 3) has been sent to the hatch.
+Order O00000008 ('Garlic bread', x9, table 3) has been sent to the table.
+Order O00000015 ('Lasagne', x2, table 2) has been sent to the kitchen.
+Order O00000010 ('Lemon sorbet', x9, table 1) has been sent to the hatch.
+Order O00000009 ('Coffee', x7, table 3) has been sent to the table.
+Order O00000011 ('Lemon sorbet', x1, table 6) has been sent to the hatch.
+Order O00000010 ('Lemon sorbet', x9, table 1) has been sent to the table.
+Order O00000012 ('Baked cheesecake', x1, table 1) has been sent to the hatch.
+Order O00000013 ('Custard tart', x3, table 6) has been sent to the hatch.
+Order O00000014 ('Custard tart', x2, table 4) has been sent to the hatch.
+Order O00000011 ('Lemon sorbet', x1, table 6) has been sent to the table.
+Order O00000012 ('Baked cheesecake', x1, table 1) has been sent to the table.
+Order O00000015 ('Lasagne', x2, table 2) has been sent to the hatch.
+Order O00000013 ('Custard tart', x3, table 6) has been sent to the table.
+Order O00000014 ('Custard tart', x2, table 4) has been sent to the table.
+Order O00000015 ('Lasagne', x2, table 2) has been sent to the table.

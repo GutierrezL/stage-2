@@ -1,8 +1,9 @@
 
 /**
 * <h1>Manager</h1>
-* Manager class contains an instance variable with all the orders requested and all 
-* the items found in the menu, and connects them with the GUI
+* Manager class is responsible for creating each component of the project's
+* MVC architecture: GUI as view, the different collections as model and a
+* controller class which joins view and model.
 *
 * @author Luis Alberto Gutierrez Iglesias
 * @version 1.0
@@ -21,10 +22,7 @@ public class Manager {
 	 * In addition, creates the user interface
 	 */
 	public void run(){
-		//ManagerGUI GUI = new ManagerGUI("Restaurant application", collections);
-		//GUI.setSize(600, 500);
 		OrderGenerator model = new OrderGenerator();
-		//OrderGenerator model = new OrderGenerator(collections.getOrderList(), collections.getMenuItemMap()); 
 		MVCRestaurantView view = new MVCRestaurantView(model);
 		MVCRestaurantController controller = new MVCRestaurantController(model, view);   
 		view.setVisible(true);

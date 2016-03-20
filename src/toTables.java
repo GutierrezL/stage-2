@@ -9,12 +9,14 @@ public class toTables implements Runnable{
 		kitchen = k;
 	}
 
-	//Tables receive orders repeatedly until kitchen is empty
+	// This class sends orders from the hatch to each table
 	public void run() {
 		try { Thread.sleep(1000); }
 	    catch (InterruptedException e) {}
-		//loop while kitchen not empty
+		// It loops while kitchen is not closed and hatch is not empty
 		while (!kitchen.hatchIsFinished() || !kitchen.isFinished()) {
+			// This thread runs each second, simulating the time a waiter could take to pick an
+			// order from the hatch and serve it in its corresponding table
 			try { Thread.sleep(1000); }
 		    catch (InterruptedException e) {}
 			kitchen.orderToTable();
@@ -23,7 +25,8 @@ public class toTables implements Runnable{
 			Log.getInstance().outputLog();
 		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
 			e1.printStackTrace();
-		} 
+		}
+		// Simulation ends when kitchen closes
 		kitchen.setSimFinished();
 	}
 }

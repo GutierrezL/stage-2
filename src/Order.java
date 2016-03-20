@@ -34,12 +34,6 @@ public class Order implements Comparable<Order> {
 	 */
 	private int quantity;
 	
-	// CLASS VARIABLES
-	/**
-	 * Last order identifier used
-	 */
-	private static String lastID = "O00000001";
-	
 	// CONSTRUCTORS
 	/**
 	 * Main constructor
@@ -50,23 +44,14 @@ public class Order implements Comparable<Order> {
 	 * @throws InvalidPositiveInteger
 	 */
 	public Order(int t, String i, int q) throws InvalidPositiveInteger {
-		orderID = lastID;
-		autoincrementID();
+		// OrderID generated using Singleton pattern
+		OrderID last = OrderID.getInstance();
+		orderID = last.getNext();
 		if(t>0)	tableID = t;
 		else	throw new InvalidPositiveInteger(t);
 		itemName = i;
 		if(q>0)	quantity = q;
 		else	throw new InvalidPositiveInteger(q);
-	}
-	
-	/*
-	 * Private method used to increment the last order identifier assigned.
-	 * It will be called in each order creation. 
-	 */
-	private void autoincrementID() {
-		NumberFormat myFormat = new DecimalFormat("00000000");
-		int i = Integer.parseInt(lastID.substring(1)) + 1;
-		lastID = "O" + myFormat.format(i);
 	}
 
 	/**
