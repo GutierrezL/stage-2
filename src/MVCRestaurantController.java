@@ -1,7 +1,5 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -29,12 +27,14 @@ public class MVCRestaurantController{
 	{	
 	    public void actionPerformed(ActionEvent ae) 
 	    { 
+	    	//Gets order population method from the GUI.
 	    	String popValue = view.getPopulateMethod();
 	    	model.setPopulateMethod(popValue);
+	    	//Gets the length of time the kitchen will be open from the GUI.
 	    	String durValue = view.getKitchOpenTime();
 	    	model.setKitchOpenTime(durValue);
 			model.start();
-			view.getBill.setEnabled(true);
+			view.disableStartButton();
 	    }
 	 }
 	
@@ -65,4 +65,3 @@ public class MVCRestaurantController{
 	    }
 	 }
 }
-

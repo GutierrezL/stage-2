@@ -1,4 +1,3 @@
-import javax.swing.JFrame;
 
 /**
 * <h1>Manager</h1>

@@ -35,6 +35,11 @@ public class Log {
 		return logText;
 	}
 	
+	/**
+	 * Creates an output file of the Log.
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException
+	 */
 	public void outputLog() throws FileNotFoundException, UnsupportedEncodingException{
 		PrintWriter writer = new PrintWriter("ActionLog.txt", "UTF-8");
 		writer.print(logText);
