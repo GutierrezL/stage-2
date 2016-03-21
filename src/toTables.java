@@ -11,8 +11,6 @@ public class toTables implements Runnable{
 
 	// This class sends orders from the hatch to each table
 	public void run() {
-		try { Thread.sleep(1000); }
-	    catch (InterruptedException e) {}
 		// It loops while kitchen is not closed and hatch is not empty
 		while (!kitchen.hatchIsFinished() || !kitchen.isFinished()) {
 			// This thread runs each second, simulating the time a waiter could take to pick an

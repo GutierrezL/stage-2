@@ -1,8 +1,8 @@
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
 
@@ -20,10 +20,13 @@ public class MenuScanner {
         menuEntries = new MenuItemMap();
         
         BufferedReader buff = null;
+        InputStream is = null;
+        InputStreamReader isr = null;
         String data [] = new String[4];
         try {
-        	File file = new File("MenuInput.txt");
-        	buff = new BufferedReader(new FileReader(file));
+        	is = getClass().getResourceAsStream("resources/MenuInput.txt");
+        	isr = new InputStreamReader(is);
+        	buff = new BufferedReader(isr);
 	    	String inputLine = buff.readLine();  //Reads first line.
 	    	int line_count=0; //Keeps track of lines for errors.
 	    	while(inputLine != null){  
@@ -86,6 +89,8 @@ public class MenuScanner {
         finally  {
         	try{
         		buff.close();
+        		isr.close();
+        		is.close();
         	}
         	catch (IOException ioe) {
         		ioe.printStackTrace();

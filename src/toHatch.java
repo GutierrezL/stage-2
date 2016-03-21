@@ -9,6 +9,7 @@ public class toHatch implements Runnable{
 
 	//This class sends orders from the kitchen to the hatch once they are ready
 	public void run() {
+		// At the beginning, this thread tries to run each 100 miliseconds till the kitchen receives the first order
 		int waitingTime = 100;
 		boolean orderAvailable = false;
 		// If the kitchen is not closes and has ready orders, the thread keep sending orders to the hatch

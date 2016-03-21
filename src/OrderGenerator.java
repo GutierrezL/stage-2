@@ -1,8 +1,10 @@
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,6 +12,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.Map.Entry;
 import java.util.ArrayList;
 
@@ -161,8 +164,9 @@ public class OrderGenerator extends Observable{
 		//Checks, if kitchen is still open
 		if (!this.isFinished()){
 			try{
-				//Gets line corresponding to argument value
-				String lineValue = Files.readAllLines(Paths.get("OrderInput.txt")).get(line).trim();
+				InputStream is = getClass().getResourceAsStream("resources/OrderInput.txt");
+		        //Gets line corresponding to argument value
+				String lineValue = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8)).lines().collect(Collectors.toList()).get(line).trim();
 				//Checks, if line exists and is not empty
 				if(lineValue!= null && !lineValue.isEmpty()){
 					String parts [] = lineValue.split(";");
@@ -187,7 +191,7 @@ public class OrderGenerator extends Observable{
 						}						
 					}
 				}
-			}catch (FileNotFoundException fnf){
+			}catch (NullPointerException npe){
 				System.out.println("File OrderInput.txt could not be found\n");
 				System.exit(0);
 			} 
